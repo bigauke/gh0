@@ -37,8 +37,8 @@ Siga **todos os passos** abaixo para fazer sua contribuição:
 
 1. **Comente na issue** dizendo que você vai trabalhar nela
 2. Exemplo: "Olá! Gostaria de trabalhar nesta issue."
-3. Aguarde o professor atribuir a issue a você (se aplicável)
-4. **Não comece sem comentar primeiro!** Evita duplicação de trabalho
+3. Aguarde o professor atribuir a issue a você
+4. **Não comece sem comentar primeiro!** Isso evita duplicação de trabalho
 
 ### Passo 3: Fazer Fork do Repositório
 
@@ -52,10 +52,10 @@ Abra o terminal e execute:
 
 ```bash
 # Substitua SEU-USUARIO pelo seu nome de usuário do GitHub
-git clone https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git
+git clone https://github.com/SEU-USUARIO/gh0.git
 
 # Entre na pasta do projeto
-cd NOME-DO-REPOSITORIO
+cd gh0
 ```
 
 ### Passo 5: Configurar o Repositório Upstream
@@ -64,7 +64,7 @@ Isso permite que você mantenha seu fork atualizado com o repositório original:
 
 ```bash
 # Adicione o repositório original como "upstream"
-git remote add upstream https://github.com/USUARIO-ORIGINAL/NOME-DO-REPOSITORIO.git
+git remote add upstream https://github.com/iaglourenco/gh0.git
 
 # Verifique se foi adicionado corretamente
 git remote -v
@@ -73,10 +73,10 @@ git remote -v
 Você deve ver algo assim:
 
 ```
-origin    https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git (fetch)
-origin    https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git (push)
-upstream  https://github.com/USUARIO-ORIGINAL/NOME-DO-REPOSITORIO.git (fetch)
-upstream  https://github.com/USUARIO-ORIGINAL/NOME-DO-REPOSITORIO.git (push)
+origin    https://github.com/SEU-USUARIO/gh0.git (fetch)
+origin    https://github.com/SEU-USUARIO/gh0.git (push)
+upstream  https://github.com/iaglourenco/gh0.git (fetch)
+upstream  https://github.com/iaglourenco/gh0.git (push)
 ```
 
 ### Passo 6: Criar uma Branch
@@ -86,7 +86,7 @@ upstream  https://github.com/USUARIO-ORIGINAL/NOME-DO-REPOSITORIO.git (push)
 ```bash
 # Crie e mude para uma nova branch
 # Use um nome descritivo: seu-nome/descricao-tarefa
-git checkout -b seu-nome/adiciona-secao-git-init
+git switch -c seu-nome/adiciona-secao-git-init
 
 # Exemplos de bons nomes de branch:
 # joao-silva/explica-git-commit
@@ -142,7 +142,7 @@ git push origin seu-nome/adiciona-secao-git-init
 ### Passo 10: Abrir um Pull Request
 
 1. Acesse seu fork no GitHub
-2. Você verá um banner **"Compare & pull request"** - clique nele
+2. Você verá um banner **"Compare & pull request"** — clique nele
 3. Preencha o template do Pull Request:
    - Descreva o que você fez
    - Referencie a issue (ex: `Closes #42`)
@@ -181,11 +181,11 @@ tipo: descrição breve do que foi feito
 
 ### Tipos de Commit
 
-- `docs:` - Adição ou alteração de documentação
-- `fix:` - Correção de erros ou typos
-- `style:` - Formatação, indentação (sem mudança de conteúdo)
-- `refactor:` - Reorganização de conteúdo sem adicionar/remover
-- `feat:` - Nova funcionalidade ou seção
+- `docs:` — Adição ou alteração de documentação
+- `fix:` — Correção de erros ou typos
+- `style:` — Formatação, indentação (sem mudança de conteúdo)
+- `refactor:` — Reorganização de conteúdo sem adicionar/remover
+- `feat:` — Nova seção ou funcionalidade
 
 ### Exemplos de Boas Mensagens
 
@@ -213,7 +213,7 @@ git commit -m "mudei umas coisas"
 - Primeira letra **minúscula** (exceto nomes próprios)
 - **Não** use ponto final
 - Seja **específico** sobre o que foi feito
-- Mantenha a linha com **menos de 50 caracteres**
+- Mantenha a linha com **menos de 72 caracteres**
 
 ## 👀 Como Revisar Pull Requests
 
@@ -251,7 +251,7 @@ Parte do projeto é revisar as contribuições de colegas. Veja como fazer uma b
 
 ✅ **Construtivo:**
 
-> "Boa explicação! Sugiro adicionar um exemplo prático de como usar o comando git init em um projeto real. Isso ajudaria iniciantes a entenderem melhor."
+> "Boa explicação! Sugiro adicionar um exemplo prático de como usar o `git init` em um projeto real. Isso ajudaria iniciantes a entenderem melhor o contexto."
 
 ❌ **Não construtivo:**
 
@@ -277,7 +277,7 @@ Aprove um Pull Request quando:
 - Não há erros de ortografia ou gramática significativos
 - O Markdown está formatado corretamente
 - A issue foi resolvida
-- Você respondeu a todos os comentários/sugestões anteriores
+- Todos os comentários anteriores foram respondidos ou resolvidos
 
 ## ⚔️ Resolução de Conflitos
 
@@ -286,8 +286,8 @@ Conflitos de merge acontecem quando duas pessoas editam a mesma parte de um arqu
 ### Por Que Acontecem?
 
 1. Você cria uma branch baseada na `main`
-2. Enquanto você trabalha, outra pessoa faz um Pull Request
-3. O Pull Request dela é aprovado e feito merge
+2. Enquanto você trabalha, outra pessoa abre um Pull Request
+3. O Pull Request dela é aprovado e o merge é feito
 4. Agora a `main` mudou, mas sua branch não tem essas mudanças
 5. Quando você abre seu PR, há um conflito
 
@@ -297,7 +297,7 @@ Conflitos de merge acontecem quando duas pessoas editam a mesma parte de um arqu
 
 ```bash
 # Certifique-se de estar na sua branch
-git checkout sua-branch
+git switch sua-branch
 
 # Busque as atualizações do repositório original
 git fetch upstream
@@ -334,10 +334,7 @@ Automatic merge failed; fix conflicts and then commit the result.
    - `=======`: Separador
    - `>>>>>>> upstream/main`: Versão da main
 
-4. **Edite o arquivo** para manter o que faz sentido:
-   - Pode manter apenas uma versão
-   - Pode combinar as duas
-   - Pode escrever algo completamente novo
+4. **Edite o arquivo** para manter o que faz sentido (pode combinar as duas versões):
 
    ```markdown
    ## git init
@@ -347,25 +344,24 @@ Automatic merge failed; fix conflicts and then commit the result.
 
 5. **Delete os marcadores** (`<<<<<<<`, `=======`, `>>>>>>>`)
 
-6. Salve o arquivo e faça commit:
+6. Salve o arquivo e finalize:
 
    ```bash
    git add docs/02-comandos-essenciais.md
-   git commit -m "resolve: conflito em seção git init"
+   git commit -m "resolve: conflito na seção git init"
    git push origin sua-branch
    ```
 
 ### Ferramentas para Ajudar
 
-- **VS Code**: Tem botões visuais para resolver conflitos
-- **GitKraken**: Interface gráfica para merge
-- **Comandos Git**: `git mergetool` abre ferramenta de merge
+- **VS Code**: Tem botões visuais para aceitar uma versão ou combinar as duas
+- **Comando Git**: `git mergetool` abre a ferramenta de merge configurada
 
 ### Quando Pedir Ajuda
 
 Se você:
 
-- Não entende o que causa o conflito
+- Não entende o que causou o conflito
 - Não sabe qual versão manter
 - Tem medo de perder trabalho
 - Já tentou e não conseguiu
@@ -378,24 +374,23 @@ Se você:
 
 - ✅ Trabalhe em **uma issue por vez**
 - ✅ Faça **commits pequenos e frequentes**
-- ✅ Teste o Markdown antes de fazer commit
-- ✅ **Mantenha seu fork atualizado** regularmente:
+- ✅ Teste o Markdown antes de fazer commit (VS Code: `Ctrl+Shift+V`)
+- ✅ **Mantenha seu fork atualizado** antes de começar qualquer trabalho:
 
   ```bash
   git fetch upstream
-  git checkout main
+  git switch main
   git merge upstream/main
   git push origin main
   ```
 
-- ✅ Leia a documentação oficial do Git/GitHub
 - ✅ Use linguagem simples e acessível
 - ✅ Adicione exemplos práticos sempre que possível
 
 ### Durante a Revisão
 
 - ✅ Seja **respeitoso e construtivo**
-- ✅ Faça sugestões, não críticas
+- ✅ Faça sugestões, não ordens
 - ✅ Explique **por que** algo deve mudar
 - ✅ Reconheça o esforço do colega
 - ✅ Seja específico nos comentários
@@ -403,12 +398,12 @@ Se você:
 ### Evite
 
 - ❌ Trabalhar diretamente na branch `main`
-- ❌ Fazer Pull Requests muito grandes (max 300 linhas)
+- ❌ Fazer Pull Requests muito grandes (máximo ~300 linhas)
 - ❌ Copiar e colar conteúdo sem entender
 - ❌ Ignorar comentários de revisão
-- ❌ Usar `git push --force` (pode perder trabalho!)
+- ❌ Usar `git push --force` (pode sobrescrever o trabalho de outros!)
 - ❌ Fazer commits sem mensagem descritiva
-- ❌ Esquecer de atualizar seu fork
+- ❌ Esquecer de atualizar seu fork antes de começar
 
 ## 🚨 Problemas Comuns
 
@@ -416,34 +411,34 @@ Se você:
 
 Se você já clonou o repositório original:
 
-1. Faça o fork agora no GitHub
-2. Mude o remote origin:
+1. Faça o fork agora pelo GitHub
+2. Aponte o `origin` para o seu fork:
 
    ```bash
-   git remote set-url origin https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git
+   git remote set-url origin https://github.com/SEU-USUARIO/gh0.git
    git push origin sua-branch
    ```
 
 ### "Commitei na branch main por engano!"
 
 ```bash
-# Crie uma nova branch a partir do seu commit
-git checkout -b minha-branch
+# Crie uma nova branch a partir do seu commit atual
+git switch -c minha-branch
 
 # Volte para a main
-git checkout main
+git switch main
 
-# Resete a main para o estado original
+# Resete a main para o estado do upstream
 git reset --hard upstream/main
 
-# Agora sua branch minha-branch tem suas alterações
-git checkout minha-branch
+# Suas alterações estão salvas em minha-branch
+git switch minha-branch
 git push origin minha-branch
 ```
 
 ### "Meu Pull Request tem muitos commits!"
 
-Não se preocupe! O importante é que o código final esteja correto. O professor pode fazer squash ao fazer merge.
+Não se preocupe! O importante é que o conteúdo final esteja correto. O professor pode fazer squash no momento do merge.
 
 ### "Fiz push mas não vejo meu código no repositório original"
 
@@ -456,10 +451,10 @@ Isso está correto! O push vai para **seu fork**. Para que o código apareça no
 
 ### "Markdown não está renderizando corretamente"
 
-- Use preview do editor (VS Code: `Ctrl+Shift+V`)
-- Verifique sintaxe dos blocos de código (precisam de 3 crases)
-- Veja se listas têm linha em branco antes
-- Confira indentação correta
+- Use o preview do VS Code (`Ctrl+Shift+V`)
+- Verifique a sintaxe dos blocos de código (precisam de três crases)
+- Confira se listas têm uma linha em branco antes
+- Verifique a indentação dos itens aninhados
 
 ## 💡 Precisa de Ajuda?
 
@@ -473,17 +468,16 @@ Não hesite em pedir ajuda! Todos estamos aprendendo.
    - [Documentação em docs/](docs/)
 
 2. **Issues de pergunta**:
-   - [Abra uma issue](../../issues/new/choose) tipo "Pergunta"
+   - [Abra uma issue](../../issues/new/choose) do tipo "Pergunta"
    - Descreva sua dúvida em detalhes
-   - Compartilhe mensagens de erro se houver
+   - Inclua mensagens de erro, se houver
 
 3. **Professor**:
    - Entre em contato através do fórum da disciplina
-   - Marque office hours se necessário
 
 4. **Colegas**:
    - Peça ajuda no grupo da turma
-   - Compartilhe conhecimento
+   - Compartilhe o que você já aprendeu
 
 ### Recursos Externos
 

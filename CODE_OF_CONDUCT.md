@@ -12,7 +12,7 @@ Exemplos de comportamento que contribuem para criar um ambiente positivo incluem
 
 - Usar linguagem acolhedora e inclusiva
 - Respeitar pontos de vista e experiências diferentes
-- Aceitar graciosamente críticas construtivas
+- Aceitar críticas construtivas com abertura
 - Focar no que é melhor para a comunidade de aprendizagem
 - Mostrar empatia com outros membros da comunidade
 - Ajudar colegas que estão com dificuldades
@@ -26,7 +26,7 @@ Exemplos de comportamento que contribuem para criar um ambiente positivo incluem
 Exemplos de comportamento inaceitável por participantes incluem:
 
 - Uso de linguagem ou imagens sexualizadas e atenção ou avanços sexuais indesejados
-- Comentários insultuosos/depreciativos e ataques pessoais ou políticos (trolling)
+- Comentários insultuosos ou depreciativos e ataques pessoais ou políticos (trolling)
 - Assédio público ou privado
 - Publicar informações privadas de outros, como endereço físico ou eletrônico, sem permissão explícita
 - Ridicularizar ou menosprezar colegas por erros ou falta de conhecimento
@@ -63,26 +63,27 @@ Exemplos de comportamento inaceitável por participantes incluem:
 - Responder a violações de forma apropriada e oportuna
 - Manter confidencialidade quando apropriado
 
-## Plágio e Integridade Acadêmica
+## Integridade Acadêmica
 
 Este é um projeto educacional, e a integridade acadêmica é fundamental:
 
 ### É Permitido
 
-✅ Pesquisar na documentação oficial do Git/GitHub
-✅ Ler tutoriais e artigos sobre os tópicos
-✅ Discutir conceitos com colegas
-✅ Pedir ajuda quando estiver travado
-✅ Usar exemplos da documentação oficial **citando a fonte**
-✅ Se inspirar em explicações e reescrever com suas próprias palavras
+✅ Pesquisar na documentação oficial do Git/GitHub  
+✅ Ler tutoriais e artigos sobre os tópicos  
+✅ Discutir conceitos com colegas  
+✅ Pedir ajuda quando estiver travado  
+✅ Usar exemplos da documentação oficial **citando a fonte**  
+✅ Se inspirar em explicações e reescrever com suas próprias palavras  
+✅ Usar ferramentas de IA (GitHub Copilot, ChatGPT, etc.) como **apoio**, desde que o conteúdo final seja compreendido e revisado por você  
 
 ### NÃO É Permitido
 
-❌ Copiar e colar conteúdo de sites sem citar a fonte
-❌ Usar geradores de texto AI (ChatGPT, etc.) para escrever seu conteúdo
-❌ Copiar o trabalho de um colega
-❌ Passar seu trabalho completo para um colega copiar
-❌ Fazer contribuições em nome de outro estudante
+❌ Copiar e colar conteúdo de sites sem citar a fonte  
+❌ Entregar conteúdo gerado por IA sem revisão ou compreensão do que foi escrito  
+❌ Copiar o trabalho de um colega  
+❌ Passar seu trabalho completo para um colega copiar  
+❌ Fazer contribuições em nome de outro estudante  
 
 **Violações de integridade acadêmica serão tratadas de acordo com as políticas da instituição.**
 
@@ -138,11 +139,11 @@ Este Código de Conduta se aplica tanto em espaços do projeto quanto em espaço
 
 Este Código de Conduta é adaptado do [Contributor Covenant](https://www.contributor-covenant.org), versão 2.1, disponível em https://www.contributor-covenant.org/version/2/1/code_of_conduct.html, e customizado para o contexto educacional.
 
-Para respostas a perguntas comuns sobre este código de conduta, veja a FAQ em https://www.contributor-covenant.org/faq. Traduções estão disponíveis em https://www.contributor-covenant.org/translations.
+Para respostas a perguntas comuns sobre este código de conduta, veja a FAQ em https://www.contributor-covenant.org/faq.
 
 ## Compromisso com a Aprendizagem
 
-Este projeto é um espaço de aprendizagem. Todos estamos aqui para aprender Git, GitHub, colaboração e comunicação técnica. Erros são esperados e bem-vindos como oportunidades de aprendizado.
+Este projeto é um espaço de aprendizagem. Todos estamos aqui para aprender Git, GitHub, colaboração e comunicação técnica. Erros são esperados e bem-vindos como oportunidades de crescimento.
 
 **Seja paciente consigo mesmo e com os outros. Perguntas não são sinais de fraqueza, mas de curiosidade e vontade de aprender.**
 

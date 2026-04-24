@@ -111,8 +111,14 @@ git merge upstream/main
 
 ### Fluxo Completo
 
-```text
-main → branch → commits → PR → review → merge → deploy automático
+```mermaid
+flowchart LR
+    A[main] --> B[branch]
+    B --> C[commits]
+    C --> D[PR]
+    D --> E[review]
+    E --> F[merge]
+    F --> G[deploy automático]
 ```
 
 ### Quando Usar

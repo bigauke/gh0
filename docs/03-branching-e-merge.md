@@ -30,10 +30,17 @@ Uma *branch* (ramificação) é essencialmente um ponteiro móvel para um commit
 
 Imagine que a linha principal do seu projeto avance commit a commit. Ao criar uma branch de `feature`, ela se separa da linha principal, cria seus próprios commits e, futuramente, pode ser unida de volta.
 
-```text
-main:     A---B---C---D
-               \
-feature:        E---F
+```mermaid
+gitGraph
+   commit id: "A"
+   commit id: "B"
+   branch feature
+   checkout feature
+   commit id: "E"
+   commit id: "F"
+   checkout main
+   commit id: "C"
+   commit id: "D"
 ```
 
 ## Branch Principal (main/master)
@@ -146,30 +153,33 @@ O Git resolve a união das branches basicamente de duas maneiras automáticas:
 
 Acontece quando a branch de destino (`main`) **não teve nenhum commit novo** desde que a branch de `feature` foi criada. Como o caminho é direto, o Git simplesmente move o ponteiro da `main` "para frente" (fast-forward) até o commit mais recente da `feature`.
 
-```text
-Antes:
-main:    A---B
-              \
-feature:       C---D
-
-Depois (fast-forward):
-main:    A---B---C---D
+```mermaid
+gitGraph
+   commit id: "A"
+   commit id: "B"
+   branch feature
+   checkout feature
+   commit id: "C"
+   commit id: "D"
+   checkout main
+   merge feature type: FAST_FORWARD
 ```
 
 ### Three-Way Merge
 
 Acontece quando a branch de destino (`main`) avançou com novos commits enquanto a branch de `feature` também avançava. O Git precisa olhar três pontos: o commit comum onde elas se separaram (ancestral) e os topos atuais de ambas.
 
-```text
-Antes:
-main:    A---B---C
-              \
-feature:       D---E
-
-Depois (merge commit):
-main:    A---B---C---F
-              \     /
-feature:       D---E
+```mermaid
+gitGraph
+   commit id: "A"
+   commit id: "B"
+   commit id: "C"
+   branch feature order: 1
+   checkout feature
+   commit id: "D"
+   commit id: "E"
+   checkout main
+   merge feature id: "F"
 ```
 
 ### Merge Commit

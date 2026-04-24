@@ -333,12 +333,15 @@ O Git reconhece automaticamente como uma alteração do tipo renomeação, deixa
 
 O fluxo de trabalho clássico (e infinito) do desenvolvedor no Git é:
 
-```
-1. Modificar arquivos (no Working Directory).
-2. git status (Para ver as mudanças).
-3. git add (Mover as alterações prontas para a Staging Area).
-4. git commit (Tirar o "snapshot" permanente).
-5. Repetir o processo para a próxima tarefa.
+```mermaid
+sequenceDiagram
+    participant WD as Working Directory
+    participant SA as Staging Area
+    participant Repo as Repository
+    
+    WD->>SA: git add
+    SA->>Repo: git commit
+    Repo-->>WD: git restore
 ```
 
 ### Exemplo Completo

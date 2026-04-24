@@ -37,17 +37,18 @@ Enquanto o comando `git merge` junta as branches silenciosamente na sua máquina
 
 O fluxo clássico de trabalho usando PRs no GitHub geralmente segue estes passos:
 
-```text
-1. Fork do repositório (se não for membro direto)
-2. Clone do repositório para sua máquina
-3. Criar uma nova branch (ex: feature/novo-botao)
-4. Fazer mudanças e comitá-las
-5. Fazer Push da sua branch para o GitHub
-6. Abrir o Pull Request na interface web
-7. Revisão e discussão (Code Review)
-8. Fazer ajustes baseados no feedback (se necessário)
-9. Obter Aprovação (Approval)
-10. Fazer o Merge
+```mermaid
+flowchart TD
+    A[1. Fork do repositório] --> B[2. Clone para sua máquina]
+    B --> C[3. Criar nova branch]
+    C --> D[4. Fazer mudanças e commits]
+    D --> E[5. Push da branch para o GitHub]
+    E --> F[6. Abrir Pull Request]
+    F --> G[7. Code Review e Discussão]
+    G --> H{8. Aprovado?}
+    H -- Não --> I[Fazer ajustes e novo Push]
+    I --> G
+    H -- Sim --> J[9. Merge do PR]
 ```
 
 ## Criando um Pull Request

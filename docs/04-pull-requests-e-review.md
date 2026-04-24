@@ -365,7 +365,16 @@ Dentro de um PR, use as abas no topo:
 - PRs podem ter aprovações (Approve) ou solicitações de mudança (Request changes).
 - Antes do merge final, muitas equipes usam a opção "Squash" para unificar a história de alterações do projeto de forma limpa.
 
+
 ---
+
+<div align="center">
+
+[⬅️ Capítulo Anterior: 03. Branching e Merge](./03-branching-e-merge.md)
+ | 
+[Capítulo Seguinte: 05. Boas Práticas ➡️](./05-boas-praticas.md)
+
+</div>
 
 ## 👥 Contribuidores
 

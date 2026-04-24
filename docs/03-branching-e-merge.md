@@ -344,21 +344,24 @@ git diff main..minha-branch
 
 ## Erros Comuns
 
-### Erro 1: Merge na Branch Errada
-
-Você queria fundir na `main`, mas sem perceber estava na branch `teste` e fez o merge nela.
-**Solução:** Use o `git status` ou olhe a indicação no seu terminal para sempre ter certeza de qual branch está (`git switch`) antes de invocar o `git merge`. Se errar, pode ser revertido via `git reset`.
-
-### Erro 2: Deletar Branch Sem Merge
-
-Tentar apagar uma branch com código não finalizado usando `git branch -D` (forçado).
-**Solução:** Sempre tente usar `-d` (minúsculo), o Git só permitirá deletar se tiver certeza de que as alterações já estão salvas na branch principal.
-
-### Erro 3: Não Atualizar a Main Antes de Criar Branch
-
-Criar uma branch a partir de uma `main` antiga na sua máquina, resultando em dezenas de conflitos na hora de integrar meses depois.
-**Solução:** Sempre rode `git pull origin main` e certifique-se de ter os arquivos atualizados antes de dar o `git switch -c`.
-
+> [!WARNING]
+> **Erro 1: Merge na Branch Errada**
+>
+> Você queria fundir na `main`, mas sem perceber estava na branch `teste` e fez o merge nela.
+> **Solução:** Use o `git status` ou olhe a indicação no seu terminal para sempre ter certeza de qual branch está (`git switch`) antes de invocar o `git merge`. Se errar, pode ser revertido via `git reset`.
+>
+> [!WARNING]
+> **Erro 2: Deletar Branch Sem Merge**
+>
+> Tentar apagar uma branch com código não finalizado usando `git branch -D` (forçado).
+> **Solução:** Sempre tente usar `-d` (minúsculo), o Git só permitirá deletar se tiver certeza de que as alterações já estão salvas na branch principal.
+>
+> [!WARNING]
+> **Erro 3: Não Atualizar a Main Antes de Criar Branch**
+>
+> Criar uma branch a partir de uma `main` antiga na sua máquina, resultando em dezenas de conflitos na hora de integrar meses depois.
+> **Solução:** Sempre rode `git pull origin main` e certifique-se de ter os arquivos atualizados antes de dar o `git switch -c`.
+>
 ## Exercícios
 
 1. Crie uma nova branch chamada `docs/primeiro-teste` e troque para ela.
@@ -391,7 +394,16 @@ Criar uma branch a partir de uma `main` antiga na sua máquina, resultando em de
 - Sempre tente atualizar sua branch local antes de criar novos trabalhos paralelos para evitar dores de cabeça no futuro.
 - Acostume-se a **deletar** as branches após os merges para manter a organização do time.
 
+
 ---
+
+<div align="center">
+
+[⬅️ Capítulo Anterior: 02. Comandos Essenciais](./02-comandos-essenciais.md)
+ | 
+[Capítulo Seguinte: 04. Pull Requests e Review ➡️](./04-pull-requests-e-review.md)
+
+</div>
 
 ## 👥 Contribuidores
 

@@ -438,7 +438,16 @@ Se a linha de comando assustar ou não for produtiva para você em tarefas visua
 - **Segurança primeiro:** Abrace o `.gitignore` com amor e nunca versione segredos. Se vazar, revogue a credencial no provedor na mesma hora.
 - **O código não é seu, é do projeto:** Receba o *Code Review* de braços abertos, seja educado nos comentários e não leve críticas ao código para o lado pessoal.
 
+
 ---
+
+<div align="center">
+
+[⬅️ Capítulo Anterior: 04. Pull Requests e Review](./04-pull-requests-e-review.md)
+ | 
+[Capítulo Seguinte: 06. Resolução de Conflitos ➡️](./06-resolucao-conflitos.md)
+
+</div>
 
 ## 👥 Contribuidores
 

@@ -180,14 +180,16 @@ Com Git, as três pessoas trabalham em seus repositórios locais. O Git acompanh
 
 ## Erros Comuns
 
-### Erro 1: Confundir Git com GitHub
-
-Como vimos, Git é a ferramenta rodando na sua máquina; GitHub é o site onde o código é guardado online. Sempre lembre: você usa o *Git* para enviar seu código para o *GitHub*.
-
-### Erro 2: Não configurar nome e email
-
-Se você tentar fazer um commit sem configurar seu nome e email, o Git retornará um erro pedindo para configurá-los. Para corrigir, basta rodar os comandos `git config --global` mostrados anteriormente.
-
+> [!WARNING]
+> **Erro 1: Confundir Git com GitHub**
+>
+> Como vimos, Git é a ferramenta rodando na sua máquina; GitHub é o site onde o código é guardado online. Sempre lembre: você usa o *Git* para enviar seu código para o *GitHub*.
+>
+> [!WARNING]
+> **Erro 2: Não configurar nome e email**
+>
+> Se você tentar fazer um commit sem configurar seu nome e email, o Git retornará um erro pedindo para configurá-los. Para corrigir, basta rodar os comandos `git config --global` mostrados anteriormente.
+>
 ## Exercícios
 
 1. Instale o Git em seu computador, abra o terminal e verifique a versão instalada rodando `git --version`.
@@ -215,7 +217,14 @@ Se você tentar fazer um commit sem configurar seu nome e email, o Git retornar�
 - O fluxo de trabalho básico do Git envolve o **Working Directory**, a **Staging Area** e o **Repository**.
 - Conceitos-chave incluem **Commits** (snapshots), **Branches** (linhas paralelas de desenvolvimento) e **Clones/Forks**.
 
+
 ---
+
+<div align="center">
+
+[Capítulo Seguinte: 02. Comandos Essenciais ➡️](./02-comandos-essenciais.md)
+
+</div>
 
 ## 👥 Contribuidores
 

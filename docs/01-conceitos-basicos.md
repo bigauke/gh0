@@ -220,4 +220,4 @@ Se você tentar fazer um commit sem configurar seu nome e email, o Git retornar�
 ## 👥 Contribuidores
 
 Este conteúdo é colaborativo. Contribuidores deste arquivo:
-- [@bigauke](https://github.com/bigauke) - Preenchimento do conteúdo sobre Conceitos Básicos.
+- [@bigauke](https://github.com/bigauke) (Antonio Daniel de Souza Linhares) - Preenchimento do conteúdo sobre Conceitos Básicos.

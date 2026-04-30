@@ -4,48 +4,98 @@
 
 ## 📋 Objetivos de Aprendizagem
 
-Ao final deste capítulo, você será capaz de:
-- Compreender o conceito de branches (ramificações) e sua importância no desenvolvimento.
-- Criar, listar, trocar e deletar branches no repositório.
-- Unir (merge) diferentes branches de forma segura.
-- Compreender a diferença entre os tipos de merge (Fast-Forward e Three-Way).
-- Lidar com o estado do diretório de trabalho ao mudar de contexto.
+- Compreender o que são branches e como funcionam
+- Criar, listar, trocar e deletar branches
+- Entender o papel do HEAD
+- Trabalhar com múltiplas linhas de desenvolvimento paralelas
+- Aplicar boas práticas de nomenclatura
 
 ## 🎯 Introdução
 
-O uso de branches é, sem dúvida, o recurso mais poderoso e utilizado do Git. Ele permite que desenvolvedores trabalhem no mesmo projeto simultaneamente, sem interferirem no código uns dos outros. As branches possibilitam o desenvolvimento paralelo, a experimentação segura de novas ideias e a organização clara de funcionalidades, correções e atualizações.
+Branches são fundamentais para o desenvolvimento de software moderno. Eles permitem trabalhar em paralelo sem interferir no código principal, facilitando experimentação segura, correção de bugs e desenvolvimento de novas funcionalidades de forma organizada.
 
 ## O que são Branches?
 
-Uma *branch* (ramificação) é essencialmente um ponteiro móvel para um commit específico no histórico do seu projeto. Pense nela como uma "linha do tempo alternativa" ou um "universo paralelo" do seu código. Quando você cria uma branch, está criando um ambiente isolado onde pode fazer alterações sem afetar a versão principal do projeto.
+Uma **branch** (ramificação) é uma referência leve que aponta para um commit específico no histórico do repositório. Em termos técnicos, um branch é simplesmente um ponteiro (pointer) para um hash SHA-1 de um commit.
+
+### Analogia Visual
+
+Pense em uma árvore:
+
+- O **tronco** representa a branch principal (main)
+- Os **galhos** são branches secundárias
+- Cada commit é um ponto na história onde você tomou um caminho diferente
+
+### Como Funcionam
+
+```
+Commit:    A        B        C        D        (main)
+              ↓        ↓        ↓        ↓
+            1a2b3c   4d5e6f   7g8h9i   0j1k2l   (hash dos commits)
+              │
+              └─ Another-branch (ponteiro para C)
+```
+
+Cada branch armazena apenas o hash do commit mais recente. O Git então segue a cadeia de commits pais para construir o histórico completo.
 
 ### Por que Usar Branches?
 
-- **Isolamento:** Alterações feitas em uma branch não afetam as outras. Se o seu código quebrar, a branch principal continua intacta.
-- **Trabalho Paralelo:** Várias pessoas ou times podem desenvolver diferentes funcionalidades ao mesmo tempo.
-- **Revisão de Código:** Facilita a revisão (Code Review) através de Pull Requests antes que o código seja integrado à versão oficial.
-- **Testes Livres:** Você pode criar uma branch apenas para testar uma ideia maluca; se não der certo, é só deletá-la e voltar para onde estava.
+| Benefício                         | Descrição                                                                            |
+| ---------------------------------- | -------------------------------------------------------------------------------------- |
+| **Isolamento**               | Cada feature ou correção pode ser desenvolvida isoladamente                          |
+| **Desenvolvimento Paralelo** | Multiple desenvolvedores podem trabalhar em diferentes funcionalidades simultaneamente |
+| **Experimentação Segura**  | Alterações experimentais não afetam o código em produção                         |
+| **Organização**            | Separação clara entre trabalho em andamento e código estável                       |
+
+### Ciclo de Vida de uma Branch
+
+1. **Criar** - Iniciar uma nova linha de desenvolvimento
+2. **Trabalhar** - Fazer commits com alterações
+3. **Merge** - Integrar as mudanças à branch destino
+4. **Deletar** - Remover a branch após a integração
 
 ### Visualizando Branches
 
-Imagine que a linha principal do seu projeto avance commit a commit. Ao criar uma branch de `feature`, ela se separa da linha principal, cria seus próprios commits e, futuramente, pode ser unida de volta.
+Um branch é simplesmente um ponteiro (reference) que aponta para um commit específico. O Git usa essa referência para navegar pelo histórico de commits.
 
-```mermaid
-gitGraph
-   commit id: "A"
-   commit id: "B"
-   branch feature
-   checkout feature
-   commit id: "E"
-   commit id: "F"
-   checkout main
-   commit id: "C"
-   commit id: "D"
+#### Diagrama de Múltiplas Branches
+
 ```
+       main:     A---B---C---D---E
+                │
+                └─ feature/login:       F---G---H
+                           │
+                           └─ bugfix/error:        I---J
+```
+
+- **A, B, C, D, E**: Commits na branch main
+- **F, G, H**: Commits na branch feature/login (começa a partir de E)
+- **I, J**: Commits na branch bugfix/error (começa a partir de H)
+
+#### HEAD: O Ponteiro Atual
+
+O **HEAD** é uma referência especial que indica o commit (e branch) atual onde você está trabalhando.
+
+```
+HEAD -> main -> D (você está na branch main, no commit D)
+```
+
+Quando você muda de branch, o HEAD é atualizado para apontar para a nova branch.
 
 ## Branch Principal (main/master)
 
-A branch principal é a linha do tempo "oficial" do seu projeto, que deve conter sempre o código estável e funcional. Tradicionalmente chamada de `master`, a comunidade adotou o termo `main` como padrão moderno. Geralmente, essa branch é protegida nas configurações do repositório remoto (como no GitHub) para evitar que alterações sejam feitas nela diretamente sem passar por revisão.
+A branch **main** (anteriormente chamada de **master**) é a branch padrão do repositório. Ela representa a linha principal de desenvolvimento e, geralmente, contém o código que está em produção.
+
+### Características
+
+- É criada automaticamente ao inicializar um repositório Git
+- Geralmente contém o código mais estável e deployável
+- Frequentemente protegida em repositórios remotos (não permite push direto)
+- Serve como base para criar outras branches
+
+### Histórico: master → main
+
+Recentemente, a comunidade Git mudou de **master** para **main** como nome padrão, adotando uma linguagem mais inclusiva. Repositórios novos já usam **main** por padrão.
 
 ## Trabalhando com Branches
 
@@ -54,11 +104,20 @@ A branch principal é a linha do tempo "oficial" do seu projeto, que deve conter
 Para ver quais branches existem no seu repositório local:
 
 ```bash
-# Lista todas as branches locais. O asterisco (*) indica a branch atual.
+# Listar branches locais
 git branch
 
-# Lista todas as branches (locais e remotas)
+# Listar todas as branches (locais e remotas)
 git branch -a
+
+# Listar branches com último commit
+git branch -v
+
+# Listar branches que já foram mescladas na branch atual
+git branch --merged
+
+# Listar branches que ainda não foram mescladas
+git branch --no-merged
 ```
 
 ### Criar uma Nova Branch
@@ -66,49 +125,125 @@ git branch -a
 Para criar uma ramificação a partir do ponto atual onde você está:
 
 ```bash
+# Criar uma nova branch (sem trocar para ela)
 git branch <nome-da-branch>
+
+# Exemplo
+git branch feature/login
 ```
 
 #### Boas Práticas de Nomenclatura
 
-Dar bons nomes às branches ajuda o time a entender rapidamente o que está sendo feito nelas. É comum usar prefixos com barras:
-- `feature/login-usuario` para novas funcionalidades.
-- `fix/botao-quebrado` para correção de bugs.
-- `docs/atualiza-readme` para documentação.
+Use nomes descritivos e consistentes para suas branches:
+
+| Prefixo                 | Uso                   | Exemplo                    |
+| ----------------------- | --------------------- | -------------------------- |
+| `feature/`            | Novas funcionalidades | `feature/login-social`   |
+| `fix/` ou `bugfix/` | Correção de bugs    | `fix/bug-login-123`      |
+| `hotfix/`             | Correções urgentes  | `hotfix/erro-producao`   |
+| `docs/`               | Documentação        | `docs/readme-atualizado` |
+| `refactor/`           | Refatoração         | `refactor/auth-service`  |
+| `experiment/`         | Experimentos          | `experiment/nova-api`    |
+
+### Dicas
+
+- Use letras minúsculas e hifens para separar palavras
+- Inclua o número da issue quando aplicável: `feature/login-#123`
+- Mantenha nomes curtos mas descritivos
 
 ### Trocar de Branch
 
 Para navegar entre as linhas do tempo (branches):
 
 ```bash
-# Comando tradicional para trocar de branch
+# Trocar para uma branch existente
 git checkout <nome-da-branch>
 
-# Comando moderno e recomendado especificamente para trocar de branches
+# OU (comando mais moderno)
 git switch <nome-da-branch>
+
+# Exemplo
+git checkout feature/login
+git switch feature/login
 ```
+
+> **Nota:** O `git switch` é recomendado pois é mais específico que `git checkout` (que também serve para outras coisas).
 
 ### Criar e Trocar em Um Comando
 
 Na prática, quase sempre que criamos uma branch, queremos ir imediatamente para ela. Existem atalhos para isso:
 
 ```bash
-# O comando tradicional
-git checkout -b <nome-da-nova-branch>
+# Criar e trocar para nova branch em um comando
+git checkout -b <nome-da-branch>
 
-# O comando moderno equivalente
-git switch -c <nome-da-nova-branch>
+# OU (comando mais moderno)
+git switch -c <nome-da-branch>
+
+# Exemplo
+git checkout -b feature/login
+git switch -c feature/login
 ```
+
+> `-c` significa "create" (criar)
 
 ## Estados do Working Directory
 
-Ao trocar de branch usando `git switch` ou `git checkout`, o Git atualiza instantaneamente os arquivos na pasta do seu projeto (Working Directory) para refletirem exatamente o código contido naquela branch. 
+Quando você troca de branch, o Git altera o conteúdo do seu diretório de trabalho para refletir o estado da branch selecionada.
+
+### O que Acontece ao Trocar de Branch
+
+1. O Git identifica o commit pela nova branch
+2. Os arquivos no diretório de trabalho são atualizados para esse commit
+3. O ponteiro HEAD é atualizado para apontar para a nova branch
+
+### Cenário Comum
+
+```
+1. Você está na branch main com arquivos da versão 1.0
+2. Troca para feature/nova-func
+3. Seus arquivos agora mostram a versão com a nova funcionalidade
+4. Trabalha e faz commits nessa versão
+5. Troca de volta para main
+6. Seus arquivos voltam para a versão original
+```
 
 ### Mudanças Não Commitadas
 
-Se você tiver arquivos modificados (não commitados) e tentar trocar de branch, o Git analisará:
-- Se as mudanças *não conflitarem* com a nova branch, o Git as leva junto com você.
-- Se *houver conflitos*, o Git impedirá a troca e exibirá um erro pedindo que você faça um commit ou descarte as mudanças (ou use o `stash`, que veremos adiante).
+Se você tiver alterações não salvas (não commitadas) e tentar trocar de branch, o Git impedirá a troca para evitar perda de trabalho.
+
+```bash
+# Você está em main com mudanças não commitadas
+$ git status
+On branch main
+Changes not staged for commit:
+  modified:   arquivo.txt
+
+# Tentando trocar de branch
+$ git checkout feature/nova
+error: Your local changes would be overwritten by checkout.
+Please commit them or stash them before you switch branches.
+```
+
+#### Soluções
+
+1. **Fazer commit** das mudanças antes de trocar
+2. **Stash** (salvar temporariamente): `git stash`
+
+```bash
+# Salvar mudanças temporariamente
+git stash
+
+# Trabalhar na nova branch
+git checkout feature/nova
+# ... fazer trabalho ...
+
+# Voltar para a branch anterior
+git checkout main
+
+# Restaurar as mudanças salvas
+git stash pop
+```
 
 ## Merge: Unindo Branches
 
@@ -147,7 +282,11 @@ git merge feature/nova-tela
 
 ## Tipos de Merge
 
-O Git resolve a união das branches basicamente de duas maneiras automáticas:
+### Fast-Forward Merge
+
+<!-- TODO: O que é fast-forward -->
+
+<!-- Quando acontece: quando não há commits divergentes -->
 
 ### Fast-Forward Merge
 
@@ -167,24 +306,27 @@ gitGraph
 
 ### Three-Way Merge
 
-Acontece quando a branch de destino (`main`) avançou com novos commits enquanto a branch de `feature` também avançava. O Git precisa olhar três pontos: o commit comum onde elas se separaram (ancestral) e os topos atuais de ambas.
+<!-- TODO: O que é three-way merge -->
 
-```mermaid
-gitGraph
-   commit id: "A"
-   commit id: "B"
-   commit id: "C"
-   branch feature order: 1
-   checkout feature
-   commit id: "D"
-   commit id: "E"
-   checkout main
-   merge feature id: "F"
+<!-- Quando acontece: quando há commits em ambas as branches -->
+
+```
+Antes:
+main:    A---B---C
+              \
+feature:       D---E
+
+Depois (merge commit):
+main:    A---B---C---F
+              \     /
+feature:       D---E
 ```
 
 ### Merge Commit
 
-No caso do Three-Way, o Git cria automaticamente um novo commit, chamado de **Merge Commit** (indicado pela letra `F` no esquema acima). Ele tem uma característica especial: possui dois *parents* (dois commits ancestrais), marcando historicamente onde a união ocorreu.
+<!-- TODO: O que é um merge commit -->
+
+<!-- Tem dois parents -->
 
 ## Estratégias de Merge
 
@@ -217,22 +359,37 @@ git commit -m "feat: pacote de funcionalidades finalizado"
 
 ## Deletando Branches
 
-Depois de um merge bem-sucedido, a branch de feature não é mais necessária e pode ser excluída para manter a organização.
+### Deletar uma Branch Local
 
 ```bash
-# Deletar branch local (o Git impede se ela não tiver sido mergiada ainda, por segurança)
+# Deletar branch local (apenas se já foi merged)
 git branch -d <nome-da-branch>
 
-# Forçar a deleção da branch (mesmo sem merge)
+# Forçar deleção (use com cuidado)
 git branch -D <nome-da-branch>
 
-# Deletar a branch no servidor remoto (ex: GitHub)
+# Exemplo
+git branch -d feature/login
+git branch -d bugfix/erro-correcao
+```
+
+### Deletar uma Branch Remota
+
+```bash
+# Deletar branch remota
 git push origin --delete <nome-da-branch>
+
+# Exemplo
+git push origin --delete feature/nova-funcionalidade
 ```
 
 ### Quando Deletar Branches
 
-A melhor prática é deletar a branch logo após o código dela ter sido aprovado e mergiado na branch principal.
+- Após fazer merge na branch principal
+- Quando a funcionalidade foi abandonada
+- Para manter o repositório limpo
+
+> **Nota:** Use `-d` (minúsculo) apenas se a branch já foi mesclada. Use `-D` (maiúsculo) para forçar a deleção.
 
 ## Visualizando o Grafo
 
@@ -304,11 +461,15 @@ O fluxo mais clássico: a `main` é sagrada. Todo o novo desenvolvimento de qual
 
 ### Gitflow
 
-Um modelo robusto e engessado que cria diferentes ramificações permanentes (como `develop`, `release`, `hotfix`). Útil em empresas com ciclos de lançamentos baseados em versões super rigorosas. (Sera detalhado em outro capítulo).
+<!-- TODO: Introdução básica ao Gitflow -->
+
+<!-- (Detalhado no capítulo 07) -->
 
 ## Conflitos de Merge
 
-Muitas vezes, duas branches modificam **exatamente a mesma linha** do mesmo arquivo. O Git, não sabendo qual versão é a correta, para o merge e sinaliza um "Conflito" (*Merge Conflict*).
+<!-- TODO: Introdução básica a conflitos -->
+
+<!-- (Detalhado no capítulo 06 - Resolução de Conflitos) -->
 
 ### O que São
 
@@ -396,4 +557,5 @@ Criar uma branch a partir de uma `main` antiga na sua máquina, resultando em de
 ## 👥 Contribuidores
 
 Este conteúdo é colaborativo. Contribuidores deste arquivo:
-- [@bigauke](https://github.com/bigauke) (Antonio Daniel de Souza Linhares) - Preenchimento do conteúdo sobre Branching e Merge.
+
+- [@daniballester](https://github.com/daniballester) - Issue #19 - Seção "O que são Branches"

@@ -329,12 +329,38 @@ Ferramentas web gratuitas para iniciar projetos mais rápido:
 - **[Learn Git Branching](https://learngitbranching.js.org/):** Provavelmente a melhor forma visual de entender branches e rebases brincando num jogo.
 - **GitHub Skills:** Cursos gratuitos e práticos do próprio GitHub que criam repositórios reais para você treinar ações automatizadas.
 
-### Livros (Gratuitos)
-- **[Pro Git](https://git-scm.com/book/pt-br/v2):** O livro oficial e completo (disponível em Português). Leitura obrigatória para quem quer dominar a ferramenta.
+## Learning Resources
 
-### Cheat Sheets (Colas)
-- [GitHub Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
-- [Atlassian Git Cheat Sheet](https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet)
+### Interactive
+
+#### Learn Git Branching
+
+<!-- TODO: Jogo interativo -->
+<!-- https://learngitbranching.js.org/ -->
+
+#### GitHub Learning Lab
+
+<!-- TODO: Cursos hands-on -->
+
+### Books
+
+#### Pro Git
+
+<!-- TODO: Livro completo e gratuito -->
+<!-- https://git-scm.com/book/pt-br/v2 -->
+
+#### Git from the Bottom Up
+
+<!-- TODO: Entendimento profundo -->
+
+### Cheat Sheets
+
+Aqui estão algumas das melhores "colas" (cheat sheets) gratuitas para você salvar nos favoritos ou imprimir, servindo como uma referência rápida para os comandos mais utilizados:
+
+- [GitHub Git Cheat Sheet Oficial](https://training.github.com/downloads/pt_BR/github-git-cheat-sheet/)
+- [Atlassian Git Cheat Sheet](https://www.atlassian.com/br/git/tutorials/atlassian-git-cheatsheet)
+- [Git Tower Cheat Sheet](https://www.git-tower.com/learn/cheat-sheets/git-pt)
+- [Git Flow Cheat Sheet](https://danielkummer.github.io/git-flow-cheatsheet/index.pt_BR.html)
 
 ## Troubleshooting Tools (Resolvendo Problemas Ocultos)
 
@@ -393,5 +419,6 @@ Preso num erro estranho?
 
 ## 👥 Contribuidores
 
-Este conteúdo é colaborativo. Contribuidores deste arquivo:
-- [@bigauke](https://github.com/bigauke) (Antonio Daniel de Souza Linhares) - Preenchimento do conteúdo sobre Ferramentas e Recursos.
+<!-- Este conteúdo é colaborativo. Contribuidores deste arquivo: -->
+<!-- Adicione seu nome quando contribuir: -->
+- [@idarlandias](https://github.com/idarlandias) - Seção Cheat Sheets

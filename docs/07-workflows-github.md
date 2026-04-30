@@ -100,14 +100,14 @@ git merge upstream/main
 
 ### O que é
 
-É um workflow leve, simples e ágil, criado pelo próprio GitHub. Ele foca na entrega contínua (deploy constante).
+Workflow de desenvolvimento simples e ágil chamado GitHub Flow, onde todas as mudanças partem da branch main e retornam para ela via Pull Request.
 
 ### Princípios
 
-1. A branch `main` está **sempre** pronta para ir para produção (deployável).
-2. Todo trabalho novo acontece em uma branch descritiva criada a partir da `main`.
-3. Abre-se um Pull Request o mais cedo possível para iniciar a discussão, mesmo se o código não estiver finalizado.
-4. Após o PR ser aprovado, ele é mesclado (merge) na `main` e imediatamente enviado para produção (deploy).
+1. Main está sempre pronta para deploy (deployable)
+2. Uso de branches curtas e descritivas
+3. Pull Requests são usados para discussão e revisão de código
+4. Mudanças só entram na main após review e aprovação
 
 ### Fluxo Completo
 
@@ -123,7 +123,14 @@ flowchart LR
 
 ### Quando Usar
 
-Ideal para a maioria dos projetos web modernos, startups, times ágeis e projetos onde você pode fazer dezenas de atualizações por dia sem impactar negativamente os usuários (SaaS, sites, APIs).
+Projetos que utilizam deploy contínuo (Continuous Deployment) e precisam de agilidade no desenvolvimento, especialmente em equipes pequenas ou médias.
+
+### GitHub Flow vs Git Flow
+
+- GitHub Flow é mais simples e direto
+- Não possui branches de release ou develop
+- Ideal para deploy contínuo
+- Git Flow é mais estruturado e indicado para projetos com versões planejadas
 
 ## Git Flow
 
@@ -482,5 +489,8 @@ gh issue list
 
 ## 👥 Contribuidores
 
-Este conteúdo é colaborativo. Contribuidores deste arquivo:
-- [@bigauke](https://github.com/bigauke) (Antonio Daniel de Souza Linhares) - Preenchimento do conteúdo sobre Workflows e GitHub.
+<!-- Este conteúdo é colaborativo. Contribuidores deste arquivo: -->
+<!-- Adicione seu nome quando contribuir:
+- [@seu-usuario](https://github.com/seu-usuario) - Seção X
+-->
+[Lucas Gabriel Carvalho dos Ramos](https://github.com/LucasGCRamos) - Explicação sobre GitHub Flow

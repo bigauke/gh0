@@ -179,49 +179,107 @@ Use **antes e depois** de comandos como `git add` e `git commit` para garantir q
 
 ## git commit
 
-O `git commit` salva as alterações que estão na área de preparação (Staging Area) de forma permanente no histórico do repositório local.
+O comando `git commit` cria um registro permanente das mudanças que foram
+adicionadas à área de staging com `git add`. Cada commit funciona como um ponto
+salvo na história do projeto, contendo um identificador único, autor, data,
+mensagem descritiva e o conjunto de alterações incluídas.
+
+Use commits para dividir o trabalho em etapas pequenas e compreensíveis. Assim,
+fica mais fácil revisar mudanças, desfazer problemas e entender a evolução do
+código ao longo do tempo.
+## git commit
+
+O comando `git commit` salva as alterações da *staging area* no histórico do repositório, criando um novo ponto na linha do tempo do projeto.
 
 ### Sintaxe
 
 ```bash
-# Faz o commit com uma mensagem inline
-git commit -m "Sua mensagem aqui"
-
-# Abre o editor de texto padrão para escrever uma mensagem (útil para mensagens longas)
-git commit
-
-# Atalho: Adiciona todos os arquivos RASTREADOS modificados e faz o commit de uma vez
-git commit -am "Sua mensagem aqui" 
-# Nota: O -am NÃO adiciona arquivos novos (untracked)
+git commit -m "Mensagem"
+git commit -am "Mensagem"
 ```
 
-### Anatomia de um Bom Commit
+- `-m`: define a mensagem do commit  
+- `-a`: adiciona automaticamente arquivos já rastreados
 
-Um bom commit resolve um único problema ou adiciona uma única funcionalidade. Ele não mistura correções de bugs, adição de novas funcionalidades e formatação de texto em um único grande pacote.
+---
 
-### Mensagens de Commit
+### Componentes de um commit
 
-A mensagem deve ser clara, descrevendo **o que** foi feito e, se necessário, **por que**. 
+Cada commit contém:
+
+- SHA-1 hash (identificador único)
+- Autor e email
+- Timestamp
+- Mensagem
+- Alterações realizadas
+
+---
+
+### Boas práticas de mensagem
+
+- Use verbo no imperativo: "Add", "Fix", "Update"  
+- Seja claro e descritivo  
+- Limite a 72 caracteres  
+
+Exemplos:
+
+Boa:
+```text
+Add login button
+Fix authentication bug
+```
+
+Ruim:
+```text
+Fix stuff
+Update things
+```
+
+---
+
+### Opções úteis
 
 ```bash
-# Exemplo de BOA mensagem
-git commit -m "feat: adiciona botão de login na página principal"
-
-# Exemplo de MÁ mensagem
-git commit -m "atualização"
-git commit -m "arrumei uns bugs"
-git commit -m "asdasdasd"
+git commit --amend
 ```
 
-### Exemplo Prático
+Permite alterar o último commit.
+
+---
+
+### Commit vazio
 
 ```bash
-# Modifiquei o arquivo README.md
-git status          # Verifico o que mudou
-git add README.md   # Adiciono à staging area
-git status          # Verifico se foi pra staging
-git commit -m "docs: atualiza instruções de instalação no README" # Salvo
+git commit --allow-empty -m "Mensagem"
 ```
+
+Usado para marcar eventos ou disparar pipelines.
+
+---
+
+### Verificação
+
+```bash
+git log
+```
+
+Exibe o histórico de commits.
+
+---
+
+### Atomicidade
+
+Um commit deve representar uma única mudança lógica.
+
+---
+
+### Conceitos
+
+- Mensagem de commit  
+- Atomicidade  
+- Rastreabilidade  
+- Histórico limpo
+
 
 ## git log
 
@@ -474,5 +532,8 @@ Fazer um `git add .` às cegas e acidentalmente adicionar senhas, chaves de API 
 
 ## 👥 Contribuidores
 
-Este conteúdo é colaborativo. Contribuidores deste arquivo:
-- [@bigauke](https://github.com/bigauke) (Antonio Daniel de Souza Linhares) - Preenchimento do conteúdo sobre Comandos Essenciais.
+<!-- Este conteúdo é colaborativo. Contribuidores deste arquivo: -->
+<!-- Adicione seu nome quando contribuir:
+- [@seu-usuario](https://github.com/seu-usuario) - Seção X
+-->
+- [@Giseleptbr](https://github.com/Giseleptbr) - Seção git commit

@@ -238,10 +238,9 @@ O "editor de vídeo" do Git. Permite juntar vários commits em um só (Squash), 
 git rebase -i HEAD~3
 ```
 
-> [!TIP]
-> **Regra de Ouro do Rebase**
-> **NUNCA use rebase em branches públicas** (como `main`) que outras pessoas já baixaram. Ele reescreve a história, causando confusão para o resto do time. Use apenas na sua branch pessoal antes de abrir um PR.
->
+#### Regra de Ouro do Rebase
+**NUNCA use rebase em branches públicas** (como `main`) que outras pessoas já baixaram. Ele reescreve a história, causando confusão para o resto do time. Use apenas na sua branch pessoal antes de abrir um PR.
+
 ### git stash
 
 A "gaveta" do Git. 
@@ -390,14 +389,7 @@ Preso num erro estranho?
 - Explore o `git rebase -i` e o `git cherry-pick` quando estiver confortável com o básico.
 - Sempre tenha o link do **[Learn Git Branching](https://learngitbranching.js.org/)** guardado para visualizar mentalmente como o Git funciona.
 
-
 ---
-
-<div align="center">
-
-[⬅️ Capítulo Anterior: 07. Workflows no GitHub](./07-workflows-github.md)
-
-</div>
 
 ## 👥 Contribuidores
 

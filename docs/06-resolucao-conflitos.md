@@ -320,16 +320,7 @@ Sempre siga este fluxo para não se perder:
 - Entenda sempre a intenção da sua mudança e a intenção da mudança do seu colega antes de misturá-las.
 - Comunique-se intensamente com a equipe para manter sua branch atualizada e os conflitos raros e pequenos.
 
-
 ---
-
-<div align="center">
-
-[⬅️ Capítulo Anterior: 05. Boas Práticas](./05-boas-praticas.md)
- | 
-[Capítulo Seguinte: 07. Workflows no GitHub ➡️](./07-workflows-github.md)
-
-</div>
 
 ## 👥 Contribuidores
 

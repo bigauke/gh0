@@ -137,11 +137,10 @@ git add index.html
 git add .
 ```
 
-> [!TIP]
-> **Boas Práticas**
->
-> Evite usar `git add .` às cegas. Sempre verifique quais arquivos foram modificados usando `git status` antes. Prefira adicionar arquivos individualmente ou por partes lógicas para garantir que seus commits tenham um único propósito bem definido.
->
+### Boas Práticas
+
+Evite usar `git add .` às cegas. Sempre verifique quais arquivos foram modificados usando `git status` antes. Prefira adicionar arquivos individualmente ou por partes lógicas para garantir que seus commits tenham um único propósito bem definido.
+
 ## git status
 
 O comando `git status` exibe o estado do diretório de trabalho e da área de preparação. É o comando mais importante e você deve usá-lo o tempo todo!
@@ -416,30 +415,26 @@ git restore index.html # Minha alteração errada some, volto ao código limpo d
 
 ## Erros Comuns
 
-> [!WARNING]
-> **Erro 1: Esquecer de git add**
->
-> Fazer um `git commit` achando que as alterações serão salvas, mas o Git diz que não há nada para commitar. 
-> **Solução:** Sempre rode `git status` e `git add` antes.
->
-> [!WARNING]
-> **Erro 2: Mensagem de commit vaga**
->
-> Escrever `git commit -m "ok"` ou `git commit -m "mudanças"`. Em seis meses, você não fará ideia do que isso significa. 
-> **Solução:** Descreva **o que** mudou de forma resumida e direta.
->
-> [!WARNING]
-> **Erro 3: Committar arquivos errados**
->
-> Fazer um `git add .` às cegas e acidentalmente adicionar senhas, chaves de API ou arquivos pesados/pessoais que não deveriam ir para o repositório.
-> **Solução:** Sempre use `git status` antes de adicionar, e aprenda sobre `.gitignore`.
->
-> [!WARNING]
-> **Erro 4: Confundir git reset e git restore**
->
-> - `git restore`: Trabalha nos arquivos. Usado para desfazer modificações em arquivos soltos.
-> - `git reset`: Trabalha na linha do tempo. Usado para voltar ou desfazer commits inteiros (veja no capítulo de resolução de problemas).
->
+### Erro 1: Esquecer de git add
+
+Fazer um `git commit` achando que as alterações serão salvas, mas o Git diz que não há nada para commitar. 
+**Solução:** Sempre rode `git status` e `git add` antes.
+
+### Erro 2: Mensagem de commit vaga
+
+Escrever `git commit -m "ok"` ou `git commit -m "mudanças"`. Em seis meses, você não fará ideia do que isso significa. 
+**Solução:** Descreva **o que** mudou de forma resumida e direta.
+
+### Erro 3: Committar arquivos errados
+
+Fazer um `git add .` às cegas e acidentalmente adicionar senhas, chaves de API ou arquivos pesados/pessoais que não deveriam ir para o repositório.
+**Solução:** Sempre use `git status` antes de adicionar, e aprenda sobre `.gitignore`.
+
+### Erro 4: Confundir git reset e git restore
+
+- `git restore`: Trabalha nos arquivos. Usado para desfazer modificações em arquivos soltos.
+- `git reset`: Trabalha na linha do tempo. Usado para voltar ou desfazer commits inteiros (veja no capítulo de resolução de problemas).
+
 ## Exercícios
 
 1. Crie uma nova pasta no seu computador chamada `treino-git` e transforme-a em um repositório Git usando `git init`.
@@ -475,16 +470,7 @@ git restore index.html # Minha alteração errada some, volto ao código limpo d
 - O **`git diff`** mostra *exatamente* o que mudou, enquanto o status mostra *onde* mudou.
 - Você pode sempre recuar de erros nos arquivos modificados usando **`git restore`**.
 
-
 ---
-
-<div align="center">
-
-[⬅️ Capítulo Anterior: 01. Conceitos Básicos](./01-conceitos-basicos.md)
- | 
-[Capítulo Seguinte: 03. Branching e Merge ➡️](./03-branching-e-merge.md)
-
-</div>
 
 ## 👥 Contribuidores
 

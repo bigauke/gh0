@@ -478,16 +478,7 @@ gh issue list
 - Aumente a qualidade da engenharia automatizando processos com **GitHub Actions**.
 - Proteja o trabalho da sua equipe habilitando regras de **Branch Protection**.
 
-
 ---
-
-<div align="center">
-
-[⬅️ Capítulo Anterior: 06. Resolução de Conflitos](./06-resolucao-conflitos.md)
- | 
-[Capítulo Seguinte: 08. Ferramentas e Recursos ➡️](./08-ferramentas-e-recursos.md)
-
-</div>
 
 ## 👥 Contribuidores
 

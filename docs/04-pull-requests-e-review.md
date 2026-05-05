@@ -697,39 +697,148 @@ O PR foi encerrado sem que o código fosse mesclado. Isso acontece se a feature 
 
 ### Tipos de Merge no GitHub
 
-O GitHub oferece três maneiras principais de concluir a integração de um PR:
 
-#### Merge Commit
+### Tipos de Merge no GitHub
 
-Cria um commit explícito de junção (Merge). Ele preserva exatamente a árvore de commits e o histórico de tudo o que foi feito na branch.
+Ao finalizar um Pull Request, o GitHub oferece três estratégias para integrar suas alterações à branch principal. Entender cada uma é essencial para manter um histórico limpo e colaborativo.
 
-- Vantagem: Histórico fiel à realidade.
+---
 
-- Desvantagem: Pode deixar a árvore do Git confusa e poluída.
-  
-#### Squash and Merge
+#### 1️.    Merge Commit (Merge tradicional)
 
-Pega todos os commits da sua branch do PR e os comprime em um único commit na branch principal.
+**O que faz:** Cria um novo commit de "merge" que une as duas branches, preservando todo o histórico individual de cada uma.
 
-- Vantagem: Mantém a main extremamente limpa, com apenas um commit por funcionalidade.
+**Diagrama:**
 
-- Desvantagem: O detalhamento granular de como o desenvolvedor chegou à solução é perdido.
+```
+main:     A---B---C---M
+                 \ /
+feature:          D---E
 
-#### Rebase and Merge
+```
 
-Reaplica cada um dos commits do PR diretamente no topo da branch de destino, de forma sequencial, sem criar um commit de merge.
+**Quando usar:**
+- Projetos open-source com múltiplos contribuidores
+- Quando é importante preservar o histórico completo de cada feature
+- Para rastrear exatamente quando e como uma feature foi integrada
 
-- Vantagem: Histórico linear, limpo e detalhado.
+**Comando equivalente no Git:**
+```bash
+git checkout main
+git merge --no-ff feature-branch
+```
 
-- Desvantagem: Exige que a equipe tenha mais proficiência em Git, pois resolver conflitos de rebase pode ser complexo.
+**Vantagens:**
+- Histórico completo e auditável
+- Fácil de reverter se necessário
+- Mostra claramente o contexto da feature
 
-### Quando Usar Cada Tipo
+**Desvantagens:**
+- Histórico pode ficar "poluído" com muitos merges
+- Mais commits para navegar em projetos grandes
 
-- Squash: Ideal para branches de funcionalidades longas e com commits de correção rápida (ex: wip, arrumando typo).
+---
 
-- Merge Commit: Ideal para repositórios onde a rastreabilidade absoluta de cada etapa de desenvolvimento é exigida.
+#### 2️.   Squash and Merge (Compactar e mesclar)
 
-- Rebase: Ideal para equipes pequenas e experientes que valorizam um histórico linear perfeito.
+**O que faz:** Combina **todos os commits** da sua branch em **um único commit** antes de integrar à main.
+
+**Diagrama:**
+```
+main:     A---B---C---[D+E+F]
+                 \
+feature:          D---E---F
+```
+
+**Quando usar:**
+- Features pequenas com muitos commits de "WIP" ou correções
+- Quando o histórico detalhado da feature não é relevante
+- Para manter a branch main limpa e linear
+
+**Comando equivalente no Git:**
+```bash
+git checkout main
+git merge --squash feature-branch
+git commit -m "feat: adiciona funcionalidade X completa"
+```
+
+**Vantagens:**
+- Histórico da main limpo e objetivo
+- Cada feature = 1 commit na main
+- Ideal para deploy e changelogs
+
+**Desvantagens:**
+- Perde-se o histórico detalhado da feature
+- Pode dificultar debugging se algo der errado
+- Autores originais dos commits podem ser perdidos (configurável)
+
+---
+
+#### 3️.   Rebase and Merge (Rebase e mesclar)
+
+**O que faz:** "Reescreve" os commits da sua branch como se tivessem sido feitos **em cima da main mais recente**, criando um histórico linear.
+
+**Diagrama:**
+```
+main:     A---B---C---D'---E'---F'
+                 \
+feature:          D---E---F  (antes do rebase)
+```
+
+**Quando usar:**
+- Quando se deseja um histórico completamente linear
+- Para projetos que seguem filosofia "one branch, one commit"
+- Em equipes que preferem `git pull --rebase`
+
+**Comando equivalente no Git:**
+```bash
+git checkout feature-branch
+git rebase main
+git checkout main
+git merge feature-branch  # fast-forward merge
+```
+
+**Vantagens:**
+- Histórico linear e fácil de ler
+- Sem commits de merge extras
+- Ideal para `git bisect` e debugging
+
+**Desvantagens:**
+- Reescreve o histórico (cuidado com branches compartilhadas!)
+- Pode causar conflitos complexos durante o rebase
+- Não recomendado para branches públicas
+
+---
+
+#### Tabela de Decisão: Qual Merge Usar?
+
+#### Tabela de Decisão: Qual Merge Usar?
+
+| Cenário | Merge Commit | Squash | Rebase |
+|---------|-------------|--------|--------|
+| Feature grande com múltiplos desenvolvedores | Recomendado | Não recomendado | Com cautela |
+| Correção rápida de bug | Não recomendado | Recomendado | Recomendado |
+| Histórico detalhado é importante | Recomendado | Não recomendado | Com cautela |
+| Main deve ter histórico linear | Não recomendado | Recomendado | Recomendado |
+| Branch pública/compartilhada | Recomendado | Com cautela | Não recomendado |
+| Preparando release/changelog | Não recomendado | Recomendado | Recomendado |
+
+**Legenda:**
+- **Recomendado**: Estratégia ideal para o cenário.
+- **Não recomendado**: Evite usar nesta situação.
+- **Com cautela**: Pode ser usado, mas exige atenção a detalhes específicos.
+
+
+> **Dica**: Na dúvida, comece com **Squash and Merge** para features pequenas e **Merge Commit** para features complexas. Evite Rebase em branches que outras pessoas estão usando.
+
+---
+
+#### Cuidados Importantes
+
+1. **Nunca faça rebase em branches públicas** que outras pessoas estão usando — isso reescreve o histórico e quebra o trabalho alheio.
+2. **Comunique sua equipe** sobre a estratégia de merge adotada no projeto.
+3. **Teste sempre** após o merge, especialmente ao usar rebase.
+4. **Use mensagens de commit claras** — elas são ainda mais importantes no squash!
 
 ## Conflitos em Pull Requests
 
@@ -919,7 +1028,7 @@ Fazer alterações locais baseadas nos feedbacks, mas dar "push" ignorando as th
 ## Workflow Diagram
 
 Fluxograma básico de um Pull Request:
-
+```
 Local                   Remoto (GitHub)
   
 [ main ]                  [ main ]
@@ -932,6 +1041,7 @@ Local                   Remoto (GitHub)
    |                         |
    +------------------> (6. Open PR)
       (5. Push)
+```
 
 ## Recursos Adicionais
 

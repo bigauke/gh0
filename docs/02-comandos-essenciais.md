@@ -533,22 +533,75 @@ O diff compara o que foi escrito.
 
 ## git restore
 
-<!--  TODO: Explique git restore (comando moderno) -->
-Comando moderno para desfazer bagunças.
+O comando `git restore` foi introduzido no Git 2.23 (junto com o `git switch`) para separar as responsabilidades que antes ficavam sobrecarregadas no `git checkout`. Seu propósito principal é **desfazer mudanças** em arquivos, permitindo restaurá-los para estados anteriores, seja no diretório de trabalho (*working directory*) ou na área de preparação (*staging area*).
+
+Por padrão, `git restore <arquivo>` restaura o conteúdo do arquivo no diretório de trabalho a partir do **index/staging area**. Como o index normalmente reflete o `HEAD`, isso muitas vezes equivale à versão do último commit, mas não sempre. Para restaurar explicitamente a partir de um commit ou outro ponto do histórico, use `--source`.
 
 ### Desfazendo Mudanças
 
+O `git restore` possui duas áreas de atuação principais, dependendo de onde as modificações estão no seu repositório:
+
+#### 1. Desfazer mudanças no diretório de trabalho
+Se você modificou um arquivo, mas **não o adicionou** com `git add`, pode descartar as mudanças no diretório de trabalho e restaurá-lo para o conteúdo que está no **index** (que normalmente coincide com o último commit, quando não há mudanças staged):
+
 ```bash
-git restore script.py           # Descarta mudanças locais (volta ao estado do último commit)
-git restore --staged script.py  # Tira o arquivo da Staging Area, mas mantém o código alterado
+# Descarta todas as modificações não "staged" do arquivo
+git restore <arquivo>
+
+# Exemplo prático:
+git restore index.html
 ```
 
-### Diferença de git checkout
+> ⚠️ **Cuidado:** Esta operação é destrutiva. As alterações locais ainda não adicionadas ao staging serão perdidas permanentemente e não poderão ser recuperadas.
 
-<!-- TODO: restore é o novo comando recomendado -->
-Antigamente, o checkout fazia tudo, o que era confuso. O git restore é o comando moderno e específico para:
-- git restore <arquivo>: Limpa a bagunça no Working Directory.
-- git restore --staged <arquivo>: Tira do "palco" (unstage).
+#### 2. Remover da área de preparação (Unstage)
+Se você adicionou um arquivo com `git add` por engano e deseja removê-lo da *staging area* (sem perder as modificações no arquivo físico):
+
+```bash
+# Remove o arquivo do staging area (unstage)
+git restore --staged <arquivo>
+
+# Exemplo prático:
+git restore --staged config.js
+```
+
+#### 3. Restaurar de um commit específico
+Você também pode buscar a versão de um arquivo de um commit passado ou branch específica, em vez do último commit (HEAD):
+
+```bash
+# Restaura o arquivo para a versão de um commit específico
+git restore --source=<hash-do-commit> <arquivo>
+
+# Exemplo prático: recuperando um arquivo de 3 commits atrás
+git restore --source=HEAD~3 estilos.css
+```
+
+### Exemplo Prático: Recuperação de Arquivo Deletado
+
+Um dos usos mais valiosos do `git restore` é recuperar arquivos deletados acidentalmente. Se você excluiu um arquivo importante no seu sistema (mas não comitou a exclusão), você pode trazê-lo de volta facilmente:
+
+```bash
+# O arquivo foi deletado acidentalmente no sistema de arquivos
+$ rm arquivo_importante.txt
+
+# Verificando o status
+$ git status
+# deleted:    arquivo_importante.txt
+
+# Recuperando o arquivo do último commit
+$ git restore arquivo_importante.txt
+```
+
+### Diferenças e Alternativas
+
+É importante entender como o `git restore` se compara a outros comandos de desfazer no Git:
+
+#### `git restore` vs `git revert`
+- O **`git restore`** restaura o conteúdo de arquivos no diretório de trabalho e/ou na área de stage, **sem alterar o histórico de commits**.
+- O **`git revert`** atua sobre commits já registrados no histórico, **criando um novo commit de reversão** para desfazer as alterações de um commit anterior.
+
+#### `git restore` vs `git checkout`
+Antes do Git 2.23, o comando `git checkout` era usado tanto para trocar de branches quanto para restaurar arquivos. Essa dupla função causava confusão. A alternativa antiga para `git restore <arquivo>` era `git checkout -- <arquivo>`. Embora o `checkout` ainda funcione para este propósito por questões de compatibilidade, o uso do **`restore` é a prática recomendada moderna** por ser mais claro, seguro e ter uma intenção única e explícita.
 
 ## git rm
 
@@ -720,3 +773,4 @@ git commit -m "Criei o Guia Completo sobre Comandos Essenciais do Git"
 - [@Tom-Junior](https://github.com/Tom-Junior) - Seção todas
 -->
 - [@Giseleptbr](https://github.com/Giseleptbr) - Seção git commit
+- [@hailtonDavid](https://github.com/hailtonDavid) - Seção git restore

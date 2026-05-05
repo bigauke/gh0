@@ -416,8 +416,11 @@ Exemplo:
 
 Um exemplo básico de estrutura seria:
 
+Os workflows ficam dentro da pasta `.github/workflows/` e são escritos em YAML:
+
 ```yaml
-name: CI básico
+# .github/workflows/exemplo.yml
+name: Meu Workflow
 
 on:
   push:
@@ -568,41 +571,283 @@ jobs:
         run: npm test
 ```
 
-Esse workflow executa testes quando há `push` na branch `main` ou quando alguém abre um Pull Request para `main`.
-
-### CI/CD Básico
-
-CI/CD combina duas ideias:
-
-- CI: integração contínua, usada para testar e validar mudanças automaticamente
-- CD: entrega ou implantação contínua, usada para publicar aplicações de forma automatizada
-
-Um fluxo básico pode ser:
-
-```text
-commit → push → workflow → testes → aprovação → merge → deploy
-```
-
-Esse processo reduz erros manuais e aumenta a confiança na entrega de software.
-
-### Ligação com Branch Protection
-
-GitHub Actions também pode ser usado junto com regras de proteção de branch.
-
-Por exemplo, uma equipe pode configurar a branch `main` para aceitar merge apenas quando:
-
-- O Pull Request for aprovado
-- Os testes do workflow passarem
-- A branch estiver atualizada
-- Não houver conflitos
-
-Assim, o workflow de CI funciona como uma barreira de qualidade antes do código entrar na branch principal.
+---
 
 ### Marketplace
 
-O GitHub Marketplace reúne Actions criadas pela comunidade e por empresas. Ele permite encontrar automações prontas para testes, deploy, análise de segurança, publicação de pacotes e integração com ferramentas externas.
+O [GitHub Actions Marketplace](https://github.com/marketplace?type=actions) reúne milhares de actions prontas criadas pela comunidade. Exemplos úteis:
 
-Antes de usar uma Action de terceiros, é importante verificar se o projeto é confiável, bem mantido e possui documentação clara.
+| Action | O que faz |
+|---|---|
+| `actions/checkout@v4` | Baixa o código do repositório |
+| `actions/setup-node@v4` | Configura o Node.js |
+| `actions/setup-python@v5` | Configura o Python |
+| `actions/cache@v4` | Faz cache de dependências |
+| `actions/upload-artifact@v4` | Salva arquivos gerados pelo workflow |
+| `actions/download-artifact@v4` | Baixa arquivos salvos anteriormente |
+
+Para usar uma action do marketplace, basta referenciar com `uses`:
+
+```yaml
+- uses: actions/setup-node@v4
+  with:
+    node-version: '20'
+```
+
+> 💡 Sempre use uma versão fixada (ex: `@v4`) para evitar quebras inesperadas quando a action for atualizada.
+
+---
+
+### Build Matrix
+
+A build matrix permite testar em várias versões de linguagem ou sistema operacional ao mesmo tempo:
+
+```yaml
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [18, 20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Rodar testes
+        run: npm test
+```
+
+Isso cria 9 combinações (3 SOs × 3 versões) e todas rodam em paralelo.
+
+---
+
+### Deploy Automático na Main
+
+Para fazer deploy apenas quando há merge na branch `main`:
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Build do projeto
+        run: npm run build
+
+      - name: Deploy para produção
+        run: npm run deploy
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+```
+
+---
+
+### Artifacts
+
+Artifacts são arquivos gerados durante o workflow que você quer preservar (relatórios, binários, logs):
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload dos artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: dist/
+          retention-days: 7
+```
+
+Para baixar um artifact em outro job:
+
+```yaml
+      - name: Download dos artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+```
+
+---
+
+### Secrets Management
+
+Nunca coloque senhas ou tokens diretamente no código. Use os **Secrets** do GitHub:
+
+**Como adicionar um Secret:**
+
+1. Vá em **Settings** do repositório
+2. Clique em **Secrets and variables > Actions**
+3. Clique em **New repository secret**
+4. Dê um nome (ex: `API_KEY`) e insira o valor
+
+**Como usar no workflow:**
+
+```yaml
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Usar secret
+        run: echo "Conectando com token seguro..."
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+```
+
+> ⚠️ Secrets nunca aparecem nos logs — o GitHub os oculta automaticamente.
+
+---
+
+### Cache de Dependências
+
+Cachear dependências evita baixar tudo do zero a cada execução, tornando o workflow mais rápido:
+
+```yaml
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Rodar testes
+        run: npm test
+```
+
+Para projetos Python:
+
+```yaml
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - run: pip install -r requirements.txt
+```
+
+---
+
+### Status Badges
+
+Badges mostram o status do workflow diretamente no `README.md`. A URL segue o padrão:
+
+```
+https://github.com/USUARIO/REPOSITORIO/actions/workflows/ARQUIVO.yml/badge.svg
+```
+
+Para adicionar ao README:
+
+```markdown
+![CI](https://github.com/hikazudani/gh0/actions/workflows/ci.yml/badge.svg)
+![Deploy](https://github.com/hikazudani/gh0/actions/workflows/deploy.yml/badge.svg)
+```
+
+| Status | Significado |
+|---|---|
+| ![passing](https://img.shields.io/badge/build-passing-brightgreen) | Workflow rodou com sucesso |
+| ![failing](https://img.shields.io/badge/build-failing-red) | Algum passo falhou |
+
+---
+
+### Workflows Avançados
+
+**Jobs com dependência (`needs`):**
+
+```yaml
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run deploy
+```
+
+**Execução manual (`workflow_dispatch`):**
+
+```yaml
+on:
+  workflow_dispatch:
+    inputs:
+      ambiente:
+        description: 'Ambiente de deploy'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+```
+
+**Agendamento com cron:**
+
+```yaml
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # toda segunda-feira às 6h
+```
+
+---
+
+### Resumo
+
+| Recurso | Para que serve |
+|---|---|
+| `on: push` | Dispara o workflow a cada push |
+| `matrix` | Testa em múltiplas versões e SOs |
+| `needs` | Define ordem de execução dos jobs |
+| `secrets` | Armazena dados sensíveis com segurança |
+| `cache` | Acelera instalação de dependências |
+| `upload-artifact` | Preserva arquivos gerados no workflow |
+| `badge` | Exibe status do CI no README |
+| `workflow_dispatch` | Permite execução manual |
+| `schedule` | Agenda execuções automáticas |
+
 
 ## GitHub Pages
 

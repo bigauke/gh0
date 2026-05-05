@@ -69,7 +69,6 @@ Pessoa A                     Pessoa B
 
 <!-- TODO: Explicar os marcadores -->
 
-```markdown
 <<<<<< HEAD
 Seu código (versão atual)
 ======

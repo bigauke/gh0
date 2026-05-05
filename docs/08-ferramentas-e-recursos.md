@@ -203,12 +203,28 @@ Dessa forma, o desenvolvedor consegue trabalhar com mais organização, rapidez 
 
 ### gh (GitHub CLI)
 
-<!-- TODO: CLI oficial do GitHub -->
+A CLI oficial do GitHub (`gh`) traz as funcionalidades do GitHub diretamente para o seu terminal. Ela permite gerenciar repositórios, issues, pull requests e até GitHub Actions sem precisar abrir o navegador.
 
 #### Comandos Principais
 
 ```bash
-# TODO: gh repo, gh pr, gh issue, gh workflow
+# Autenticar-se na sua conta do GitHub
+gh auth login
+
+# Clonar um repositório do GitHub (alternativa conveniente ao git clone)
+gh repo clone <owner>/<repo>
+
+# Listar issues abertas no repositório atual
+gh issue list
+
+# Visualizar detalhes de uma issue específica
+gh issue view <numero-da-issue>
+
+# Criar um novo Pull Request a partir da branch atual
+gh pr create --title "feat: adiciona nova funcionalidade" --body "Detalhes aqui"
+
+# Listar e verificar o status de GitHub Actions
+gh run list
 ```
 
 ### hub

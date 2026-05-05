@@ -17,23 +17,86 @@ Aprender os comandos do Git é apenas o começo; a verdadeira maestria está em 
 
 ## Mensagens de Commit
 
+Mensagens de commit devem explicar de forma clara o que foi alterado no
+projeto. Um bom histórico facilita revisão de código, investigação de bugs e
+entendimento da evolução do sistema.
+
 ### Por que Mensagens Importam
 
-As mensagens de commit são a única forma de comunicação assíncrona permanente entre o desenvolvedor que escreveu o código hoje e o desenvolvedor que precisará dar manutenção nesse código daqui a cinco anos (que pode ser você mesmo!). Elas são fundamentais para entender o histórico, realizar debugging e reverter alterações com segurança.
+Mensagens bem escritas ajudam a equipe a entender rapidamente o motivo de cada
+alteração. Isso é importante durante code review, manutenção do projeto,
+debugging e análise do histórico com comandos como `git log`.
+
+Uma mensagem ruim, como `update`, não explica o que mudou. Já uma mensagem como
+`fix: validate empty login form` mostra o tipo da alteração e o problema
+resolvido.
 
 ### Estrutura de uma Boa Mensagem
 
-Um formato amplamente adotado e considerado excelente é separar o assunto do corpo do commit com uma linha em branco:
+Uma boa mensagem de commit deve ter uma primeira linha curta, com no máximo 72
+caracteres, escrita no modo imperativo.
+
+Use:
 
 ```text
-tipo: resumo claro do que foi feito em até 50 caracteres
+Add feature
+```
 
-Descrição detalhada (opcional) explicando:
-- Por que essa mudança é necessária (o contexto)
-- O que ela resolve tecnicamente
-- Como funciona (caso a lógica seja complexa)
+Evite:
 
-Referências a issues: Fixes #123, Resolves #456
+```text
+Added feature
+```
+
+Formato recomendado:
+
+```text
+tipo: resumo curto no imperativo
+
+Explique o que foi alterado.
+
+Explique por que a mudança foi necessária.
+
+Explique como o sistema funciona agora.
+
+Fixes #39
+Refs #123
+```
+
+A linha em branco entre o título e o corpo é importante porque separa o resumo
+da explicação detalhada.
+
+Exemplo:
+
+```bash
+git commit -m "docs: add commit message best practices" -m "Explain how to write clear commit messages.
+
+Describe the recommended format, conventional prefixes, issue references and git hooks.
+
+Fixes #39
+Refs #123"
+```
+
+### Corpo da Mensagem: What, Why e How Now
+
+Quando a alteração precisar de mais contexto, use o corpo da mensagem para
+responder três perguntas:
+
+- **What:** o que foi alterado.
+- **Why:** por que a alteração foi necessária.
+- **How now:** como o projeto funciona depois da mudança.
+
+Exemplo:
+
+```text
+fix: prevent duplicate user registration
+
+Check if the email already exists before creating a new account.
+
+This avoids duplicated users and improves data consistency.
+
+Fixes #39
+Refs #123
 ```
 
 ### Tipos de Commit
@@ -68,13 +131,49 @@ A convenção "Conventional Commits" estabelece prefixos para padronizar a inten
 ❌ mudanças do dia 15 (E o que foi feito no dia 15?)
 ```
 
-### Convenções de Equipe
+Esse tipo de histórico é melhor do que uma sequência de commits genéricos como
+`update`, `changes` ou `final`.
 
 É altamente recomendado que as equipes documentem seu padrão de commits e o apliquem através de ferramentas automáticas para garantir a conformidade.
 
-### Ferramentas
+Git hooks podem ser usados para validar mensagens de commit antes que elas sejam
+salvas no histórico.
 
-Ferramentas como `commitlint` validam a mensagem antes de permitir o commit. O `commitizen` fornece um prompt interativo no terminal para ajudar a formatar a mensagem corretamente, enquanto "Git Hooks" garantem que essas ferramentas rodem automaticamente.
+Um hook comum para isso é o `commit-msg`, que pode verificar se a mensagem segue
+um formato padrão, como Conventional Commits.
+
+Exemplo de formato aceito:
+
+```text
+docs: add commit message best practices
+```
+
+Exemplo de formato rejeitado:
+
+```text
+added commit docs
+```
+
+Exemplo simples de hook `commit-msg`:
+
+```bash
+#!/bin/sh
+
+commit_msg_file="$1"
+commit_msg="$(head -n 1 "$commit_msg_file")"
+
+pattern="^(feat|fix|docs|style|refactor|test|chore): .{1,72}$"
+
+if ! echo "$commit_msg" | grep -Eq "$pattern"; then
+  echo "Mensagem de commit inválida."
+  echo "Use o formato: tipo: resumo curto"
+  echo "Exemplo: docs: add commit message best practices"
+  exit 1
+fi
+```
+
+Esse tipo de validação ajuda a manter o padrão do projeto e evita mensagens
+genéricas no histórico.
 
 ## Commits Atômicos
 
@@ -127,6 +226,22 @@ feature/login-oauth-google
 fix/crash-botao-comprar
 docs/traducao-readme-ptbr
 ```
+#### Boas Práticas
+
+- Use nomes descritivos: `feature/user-login` é melhor que `feature/abc123`
+- Use letras minúsculas
+- Prefira hífens `-` no lugar de underscores `_`
+- Evite nomes muito longos
+- Evite várias pessoas trabalhando na mesma branch
+- Siga a convenção definida pelo projeto
+
+#### Listar Branches
+
+Para visualizar branches locais e remotas:
+
+```bash
+git branch -a
+```
 
 #### Prefixo com Username
 
@@ -139,7 +254,9 @@ Em projetos com dezenas de colaboradores, adicionar o nome do usuário ajuda a i
 joao-silva/feature/adiciona-barra-busca
 ```
 
-### Lifetime de Branches (Tempo de Vida)
+### Lifetime de Branches
+
+Branches podem ser temporárias ou permanentes, conforme o fluxo do projeto.
 
 #### Short-Lived Branches (Branches de Vida Curta)
 
@@ -258,6 +375,74 @@ Garante um ambiente seguro e acolhedor para a comunidade, definindo comportament
 
 Um arquivo dedicado a listar as novidades, correções e alterações críticas (breaking changes) a cada nova versão lançada do projeto.
 
+## [1.0.0] - 2025-03-01
+### Added
+- Versão inicial do projeto
+```
+
+### AUTHORS.md
+
+Nem todo projeto usa, mas é uma boa prática para dar **crédito explícito** a todas as pessoas que contribuíram. O GitHub já tem o gráfico de contribuidores automático, mas o `AUTHORS.md` é uma alternativa mais personalizável e que funciona mesmo fora da plataforma.
+
+**Exemplo de estrutura:**
+
+```markdown
+# Contribuidores
+
+- [@fulanodetal](https://github.com/fulanodetal) - Documentação inicial
+- João da Silva (joao@email.com) - Correção de bugs
+- [@ciclano](https://github.com/ciclano) - Funcionalidade X
+```
+
+### SECURITY.md
+
+Um arquivo essencial para projetos que podem ser usados por outras pessoas. Ele informa como reportar vulnerabilidades de segurança de **forma responsável** — ou seja, sem abrir uma issue pública que exporia o problema antes de ele ser corrigido.
+
+**Seções recomendadas:**
+
+- Como reportar uma vulnerabilidade (e-mail, formulário, etc.)
+- Prazo esperado de resposta
+- Quais versões ainda recebem correções de segurança
+
+A presença desse arquivo aumenta a confiança da comunidade no projeto, pois demonstra maturidade e responsabilidade.
+
+### Localização e Estrutura Padrão
+
+Os arquivos de documentação essenciais devem estar localizados na raiz do repositório ou em `.github/` (para templates de issues e PRs). A estrutura padrão é:
+
+| Arquivo | Localização | Estrutura Recomendada |
+|---------|-------------|----------------------|
+| `CONTRIBUTING.md` | Raiz | Pré-requisitos, fluxo de trabalho, padrões de commit, como abrir PR |
+| `CHANGELOG.md` | Raiz | Formato [Keep a Changelog](https://keepachangelog.com/): versões em ordem decrescente, categorias `Added`, `Changed`, `Fixed`, `Removed`, `Security` |
+| `LICENSE` | Raiz | Texto completo da licença escolhida. Use [choosealicense.com](https://choosealicense.com) para gerar |
+| `SECURITY.md` | Raiz ou `.github/` | Seções: "Reportando uma Vulnerabilidade", "Processo de Resposta", "Versões Suportadas" |
+| `CODE_OF_CONDUCT.md` | Raiz | Baseado no [Contributor Covenant](https://www.contributor-covenant.org/): compromisso, padrões, aplicação, escopo |
+| `AUTHORS.md` | Raiz (opcional) | Lista de contribuidores com nomes, usernames e tipo de contribuição |
+
+### Ferramentas Geradoras de Templates
+
+Você não precisa criar esses arquivos do zero — existem ferramentas que geram os templates prontos:
+
+| Ferramenta | Propósito | Como usar |
+|------------|-----------|------------|
+| **Templates do GitHub** | Criação inicial do repositório | Ao criar um repositório, marque "Add a README", "Add .gitignore" e "Add license" |
+| [choosealicense.com](https://choosealicense.com) | Gerar arquivo `LICENSE` | Responda às perguntas e copie o texto gerado |
+| [gitignore.io](https://gitignore.io) | Gerar `.gitignore` personalizado | Digite SO, IDE e linguagem; clique em "Generate" |
+| [Contributor Covenant](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) | Gerar `CODE_OF_CONDUCT.md` | Preencha o e-mail de contato e copie o Markdown gerado |
+| [Keep a Changelog Generator](https://github.com/alexsoyes/keep-a-changelog-generator) (CLI) | Gerar `CHANGELOG.md` a partir de commits | Use com padrão Conventional Commits |
+| **Commitizen** (`cz`) | Padronizar mensagens de commit | Instale com `npm install -g commitizen`; use `git cz` no lugar de `git commit` |
+| **standard-version** | Automatizar versionamento e changelog | Execute `npx standard-version` — bumpa a versão, gera o `CHANGELOG.md` e cria a tag |
+| **markdownlint** | Validar formatação de Markdown | Configure em `.markdownlint.json` e execute `markdownlint '**/*.md'` |
+
+#### Exemplo de fluxo completo ao criar um projeto
+
+Ao iniciar um novo repositório, um bom fluxo seria:
+
+1. **Crie o repositório** com os templates do GitHub (README, `.gitignore`, `LICENSE`).
+2. **Adicione o `CODE_OF_CONDUCT.md`** usando o Contributor Covenant Generator.
+3. **Configure o `SECURITY.md`** manualmente com e-mail de contato e prazo de resposta.
+4. **Padronize os commits** instalando o Commitizen e usando `git cz`.
+5. **Automatize o changelog** com o `standard-version` a cada nova release.
 ## Histórico Limpo
 
 Um histórico de Git deve contar a história de como o software foi construído de maneira lógica.
@@ -356,20 +541,40 @@ Se você subiu um secret acidentalmente para o GitHub:
 
 ## Fluxo de Trabalho (Workflows)
 
+A escolha do modelo de fluxo (workflow) dita como a equipe colabora e integra o código. [cite_start]Atualmente, o mercado tem migrado do "lançamento de grandes versões" para a "entrega contínua", o que impacta diretamente qual modelo escolher[cite: 679].
+
 ### Git Flow
 
-Um modelo robusto que separa o projeto em branches eternas (`main` para produção, `develop` para integração) e branches de vida curta (`feature`, `release`, `hotfix`). Excelente para software instalado que necessita de controle rígido de versões.
+[cite_start]O GitFlow é um modelo rigoroso criado em 2010, baseado em múltiplas ramificações com funções muito específicas[cite: 626]. [cite_start]Ele é ideal para projetos que possuem ciclos de lançamento (releases) bem definidos e agendados[cite: 627].
+
+- [cite_start]**main (ou master):** Código espelho da produção[cite: 628].
+- [cite_start]**develop:** Onde a integração do dia a dia acontece[cite: 629].
+- [cite_start]**feature branches:** Para novas funcionalidades (sempre saem da develop)[cite: 630].
+- [cite_start]**release branches:** Para preparar uma nova versão (estabilização e limpeza de bugs antes da produção)[cite: 631].
+- [cite_start]**hotfix branches:** Para correções críticas e imediatas direto em produção[cite: 632].
+
+[cite_start]**Prós:** Excelente para releases definidas e controle rigoroso[cite: 641].
+[cite_start]**Contras:** Muito complexo para entregas rápidas; pode gerar os famosos "merge hells" (conflitos gigantescos) se as branches durarem muito tempo[cite: 642].
 
 ### GitHub Flow
 
-Um modelo mais simples e moderno focado em entrega contínua (Deploy Continuo).
-```text
-main (sempre em produção) → cria feature branch → abre PR → review aprovado → merge na main → deploy automático.
-```
+[cite_start]É uma versão simplificada do GitFlow e que se aproxima do Trunk-based, criada pelo próprio GitHub[cite: 670]. [cite_start]É o modelo padrão para a maioria dos projetos open source e startups[cite: 671].
+
+[cite_start]Neste fluxo, a regra de ouro é: tudo o que está na `main` é implantável (deployable)[cite: 672]. O ciclo de vida é direto:
+1. [cite_start]Cria-se uma `feature branch` descritiva a partir da `main`[cite: 673].
+2. [cite_start]Abre-se um Pull Request (PR) para discussão e revisão[cite: 674].
+3. [cite_start]Após o merge na `main`, o deploy é feito imediatamente[cite: 675].
 
 ### Trunk-Based Development
 
-Equipes muito maduras não usam branches duradouras. Todo mundo comita pequenas alterações diretamente na `main` o tempo todo, usando recursos complexos como "Feature Flags" para esconder o código não finalizado dos usuários.
+[cite_start]Atualmente é o modelo mais usado (e incentivado) em empresas de tecnologia de altíssima performance (como Google, Meta e Amazon)[cite: 677]. [cite_start]Todos os desenvolvedores trabalham em uma única branch principal (o "trunk" ou `main`)[cite: 649].
+
+- [cite_start]As branches de funcionalidade são curtíssimas (duram horas ou, no máximo, um dia) ou nem existem[cite: 650].
+- [cite_start]**Integração contínua (CI):** O código é testado e mesclado à `main` várias vezes ao dia[cite: 651].
+- [cite_start]**Feature flags:** Como tudo vai para a `main` rápido, usa-se código "escondido" por chaves de configuração para não liberar funções incompletas para o usuário[cite: 652].
+
+[cite_start]**Prós:** Velocidade máxima, feedback imediato e facilita muito o Continuous Deployment (CD)[cite: 654, 655].
+[cite_start]**Contras:** Exige uma cultura de DevOps extremamente bem estabelecida, testes automatizados rigorosos e desenvolvedores experientes[cite: 656, 657, 658, 659, 660, 661].
 
 ## Aliases
 
@@ -448,3 +653,4 @@ Se a linha de comando assustar ou não for produtiva para você em tarefas visua
 <!-- Este conteúdo é colaborativo. Contribuidores deste arquivo: -->
 <!-- Adicione seu nome quando contribuir: -->
 - [@idarlandias](https://github.com/idarlandias) - Seção Commits Atômicos
+- [@Sthefferson](https://github.com/Sthefferson) - Seção Fluxo de Trabalho

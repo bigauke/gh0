@@ -84,7 +84,49 @@ Pense no Git e no GitHub da seguinte forma: o **Git** é o programa de edição 
 
 ### Repositório (Repository)
 
-Um repositório (ou simplesmente "repo") é onde os arquivos do seu projeto estão armazenados, juntamente com todo o histórico de alterações. Ele pode ser **local** (uma pasta no seu computador sob o controle do Git) ou **remoto** (hospedado em servidores na internet, como no GitHub).
+Um repositório Git é muito mais do que uma simples pasta de projeto; é um banco de dados completo que armazena todo o histórico de versões, metadados e objetos do seu trabalho.
+
+> **Analogia:** Imagine uma pasta de projeto comum, mas que possui uma "máquina do tempo" embutida. Cada alteração salva permite que você retorne exatamente ao estado em que o projeto estava em qualquer momento do passado.
+
+#### 1. Tipos de Repositório
+
+*   **Repositório Local:** Reside na sua máquina pessoal. É onde você realiza o trabalho diário, cria commits e gerencia suas branches de forma offline.
+*   **Repositório Remoto:** Hospedado em um servidor (como GitHub, GitLab ou Bitbucket). Ele serve como o "ponto de verdade" para a colaboração, permitindo que várias pessoas sincronizem seus repositórios locais.
+
+#### 2. Estrutura Básica do Git
+
+O Git organiza seu trabalho em três áreas principais:
+
+1.  **Working Directory (Diretório de Trabalho):** É a pasta onde você visualiza e edita seus arquivos.
+2.  **Staging Area (Index):** Uma área de preparação onde você marca quais arquivos alterados entrarão no próximo commit.
+3.  **Repositório (Pasta .git):** Onde o Git armazena permanentemente os snapshots (fotos) do seu projeto.
+
+#### 3. O que há dentro da pasta `.git`?
+
+Ao iniciar um repositório, o Git cria uma pasta oculta chamada `.git`. Ela contém:
+
+*   **Objects:** Onde o conteúdo real dos arquivos e os commits são armazenados.
+*   **Refs:** Ponteiros para os commits (como branches e tags).
+*   **HEAD:** Um arquivo que indica em qual branch ou commit você está trabalhando no momento.
+
+#### 4. Sincronização: Local ↔ Remoto
+
+A interação entre os tipos de repositório ocorre através de fluxos de sincronização:
+
+*   **Push (Empurrar):** Envia seus commits locais para o servidor remoto.
+*   **Pull (Puxar):** Traz as atualizações do servidor remoto e as mescla no seu repositório local.
+
+**Exemplo Prático:**
+
+```bash
+# Inicia um repositório local
+git init
+
+# Conecta o repositório local a um servidor remoto
+git remote add origin https://github.com/usuario/projeto.git
+
+# Envia o conteúdo local pela primeira vez
+git push -u origin main
 
 ### Commit
 
@@ -150,93 +192,17 @@ Isso deverá retornar a versão instalada, por exemplo: `git version 2.40.0`.
 
 ## Configuração Inicial
 
-Após instalar o Git, é fundamental configurar sua identidade. Essas informações serão associadas a cada *commit* que você realizar, permitindo identificar quem é o autor das alterações no projeto.
-
-#### 1. Configuração de Identidade
-
-Você deve configurar seu nome e e-mail. Existem dois níveis principais de configuração:
-* **Global:** Aplica-se a todos os repositórios do seu usuário na máquina.
-* **Local:** Aplica-se apenas ao repositório específico onde você está trabalhando.
-
-#### Configuração Global
-Para configurar em toda a sua máquina, utilize o parâmetro `--global`:
+<!-- TODO: Configure Git pela primeira vez -->
 
 ```bash
-# Define seu nome de exibição
-git config --global user.name "Seu Nome"
-
-# Define seu e-mail de contato
-git config --global user.email "seu.email@example.com"
+# TODO: Adicione comandos para configurar nome e email
+# git config --global user.name "Seu Nome"
+# git config --global user.email "seu@email.com"
 ```
-
-#### Configuração Local
-Se precisar usar um e-mail diferente para um projeto específico (ex: e-mail corporativo em um projeto da empresa), execute o comando dentro da pasta do projeto **sem** o `--global`:
-
-```bash
-git config user.name "Seu Nome Profissional"
-git config user.email "nome.sobrenome@empresa.com"
-```
-
-#### 2. Verificação das Configurações
-
-Para conferir se as informações foram gravadas corretamente, você pode listar as configurações atuais:
-
-```bash
-# Lista todas as configurações ativas (local + global)
-git config --list
-
-# Lista apenas as configurações globais
-git config --list --global
-```
-
-#### 3. Configurações Recomendadas (Opcional)
-
-Além da identidade, é recomendável ajustar o editor de texto padrão e o comportamento de quebra de linha.
-
-#### Editor de Texto
-Define qual editor abrirá quando o Git precisar que você escreva uma mensagem (ex: VS Code, Vim ou Notepad++):
-
-```bash
-# Exemplo para configurar o VS Code como editor padrão
-git config --global core.editor "code --wait"
-```
-
-#### Tratamento de Fim de Linha (autocrlf)
-Isso evita problemas de compatibilidade entre Windows (que usa CRLF) e sistemas Unix/Mac (que usam LF).
-
-```bash
-# Se você usa Windows:
-git config --global core.autocrlf true
-
-# Se você usa Mac ou Linux:
-git config --global core.autocrlf input
-```
-
-#### 4. Troubleshooting (Resolução de Problemas)
-
-* **Alterar uma configuração existente:** Basta executar o comando novamente com o novo valor. O Git sobrescreverá o anterior.
-* **Remover uma configuração (Reset):** Caso queira voltar ao padrão do sistema e remover uma entrada específica:
-
-```bash
-# Remove o e-mail global
-git config --global --unset user.email
-```
-
-
-**Observação:** Lembre-se que o Git prioriza sempre a configuração **Local** sobre a **Global**. Se você configurou um e-mail dentro da pasta do projeto, ele será usado em vez do e-mail geral da sua máquina.
-
-
 
 ### Por que Configurar Nome e Email?
 
-A configuração de nome e e-mail não é apenas burocrática; ela é o que garante a rastreabilidade do projeto. No Git, cada alteração (commit) é "assinada".
-
-* **Identificação de Autoria:** Em uma equipe, todos precisam saber quem fez cada modificação para tirar dúvidas ou revisar o código.
-* **Histórico de Contribuições:** Sites como GitHub e GitLab usam o e-mail configurado para vincular suas alterações ao seu perfil, gerando aquele gráfico de contribuições (os quadradinhos verdes).
-* **Segurança e Auditoria:** Ajuda a manter um registro claro de quando e por quem uma funcionalidade foi adicionada ou um erro foi introduzido.
-
-> **Importante:** O Git não verifica se o e-mail é real ou se você é o dono dele, mas se você usar um e-mail diferente do que está cadastrado no seu GitHub, o commit não aparecerá vinculado ao seu perfil de usuário.
-
+<!-- TODO: Explique a importância dessas configurações -->
 
 ## Criando uma Conta no GitHub
 
@@ -277,7 +243,6 @@ Se você tentar fazer um commit sem configurar seu nome e email, o Git retornar�
 
 - [Git Documentation](https://git-scm.com/doc)
 - [GitHub Guides](https://guides.github.com/)
-- [Tutorial de Configuração Git (Atlassian)](https://www.atlassian.com/br/git/tutorials/setting-up-a-repository/git-config)
 - <!-- Adicione mais recursos -->
 
 ## Glossário
@@ -303,4 +268,3 @@ Se você tentar fazer um commit sem configurar seu nome e email, o Git retornar�
 <!-- Adicione seu nome quando contribuir:
 - [@seu-usuario](https://github.com/seu-usuario) - Seção X
 -->
-- [Rafael Ziani de Carvalho](https://github.com/steinbukken7321) - Configuração Inicial do Git

@@ -17,24 +17,91 @@ Pull Requests são o coração da colaboração em projetos de software modernos
 
 ## O que é um Pull Request (PR)?
 
-Um Pull Request é um pedido formal para que as alterações feitas em uma branch específica sejam puxadas ("pulled") e mescladas ("merged") em outra branch (geralmente a main). É importante saber que o Pull Request não é um comando do Git, mas sim uma funcionalidade fornecida por plataformas de hospedagem de código, como o GitHub, GitLab ou Bitbucket.
+Um **Pull Request** (ou *Merge Request*, em algumas plataformas) é um **pedido formal para revisar e integrar mudanças** de uma branch em outra, geralmente da sua branch de trabalho para a `main`. Ele não é um comando do Git, e sim uma funcionalidade oferecida por plataformas de hospedagem de código como **GitHub**, **GitLab** e **Bitbucket**.
 
-### Pull Request vs MergeS
+Na prática, um PR é o ponto de encontro entre o seu código e o resto do time: é onde a equipe lê, comenta, sugere alterações e finalmente decide se as mudanças entram (ou não) no projeto.
 
-A principal diferença é que um Pull Request (PR) é uma solicitação formal para revisar e integrar o código (um processo colaborativo), enquanto o Merge é a ação técnica de juntar esse código de uma branch para outra. O PR ocorre antes do merge, permitindo discussões e testes. 
+#### Onde Acontece
+
+Pull Requests são uma feature da plataforma, não do Git em si:
+
+| Plataforma | Nome usado    |
+| ---------- | ------------- |
+| GitHub     | Pull Request  |
+| GitLab     | Merge Request |
+| Bitbucket  | Pull Request  |
+
+#### Anatomia de um Pull Request
+
+Todo PR é composto por alguns elementos principais:
+
+- **Title (título)**: resumo curto do que o PR faz.
+- **Description (descrição)**: contexto, motivação e detalhes das mudanças.
+- **Commits**: lista de commits que serão integrados.
+- **Files changed**: diff com as alterações em cada arquivo (adições em verde, remoções em vermelho).
+- **Comments / Reviews**: discussões, sugestões e aprovações feitas pelo time.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ #42  Adiciona autenticação por token                    │
+│ ─────────────────────────────────────────────────────── │
+│ feature/auth-token  →  main                             │
+│                                                         │
+│ Description:                                            │
+│   Implementa login via JWT conforme a issue #37.        │
+│                                                         │
+│ ▸ Commits (3)        ▸ Files changed (5)   ▸ Checks ✅  │
+│ ▸ Reviewers: @ana, @bruno   Status: Open                │
+└─────────────────────────────────────────────────────────┘
+```
+
+#### Fluxo Básico
+
+Em poucas palavras, o ciclo de vida de um PR segue quatro etapas:
+
+```
+1. push branch  →  você envia sua branch para o repositório remoto
+2. criar PR     →  abre o pedido de revisão na plataforma
+3. review       →  o time discute, sugere mudanças e aprova
+4. merge        →  as alterações são integradas à branch alvo (ex: main)
+```
+
+
+#### Status de um Pull Request
+
+Um PR passa por diferentes estados ao longo do seu ciclo de vida:
+
+| Status                | Significado                                                       |
+| --------------------- | ----------------------------------------------------------------- |
+| **Draft**             | Rascunho — trabalho em progresso, ainda não pronto para revisão.  |
+| **Open**              | Aberto — pronto para ser revisado pelo time.                      |
+| **Changes requested** | Revisor pediu alterações antes de aprovar.                        |
+| **Approved**          | Aprovado — autorizado a ser integrado.                            |
+| **Merged**            | Mesclado — alterações integradas à branch alvo.                   |
+| **Closed**            | Fechado sem merge — descartado ou substituído por outro PR.       |
+
+### Pull Request vs Merge
+
+É comum confundir PR com merge, mas são coisas diferentes:
+
+- **Commit** é uma ação **local**: você registra uma mudança no seu repositório.
+- **Merge** é a operação técnica do Git que integra duas branches.
+- **Pull Request** é o **processo de colaboração** que envolve revisar essas mudanças *antes* de fazer o merge.
+
+Em outras palavras: você poderia simplesmente fazer `git merge` direto na `main` e pular o PR. Isso funciona, mas você perde toda a etapa de revisão, discussão e validação automática que o PR oferece.
+
+| Aspecto       | Merge direto         | Pull Request               |
+| ------------- | -------------------- | -------------------------- |
+| Revisão       | Nenhuma              | Code review pelo time      |
+| Discussão     | Não há espaço formal | Comentários linha a linha  |
+| CI/CD         | Roda depois do merge | Roda **antes** do merge    |
+| Rastreabilidade | Só no histórico    | Histórico + contexto + decisões |
+
 
 ### Por que Usar Pull Requests?
 
-- Revisão de Código: Permite que outros desenvolvedores encontrem erros antes que cheguem à produção.
-  
-- Discussão Técnica: Cria um fórum para debater a melhor abordagem para resolver um problema.
+Além dos pontos comparados na tabela acima, o PR é o lugar onde o time aplica convenções de estilo, arquitetura e qualidade — mantendo a base de código coerente ao longo do tempo. Como bônus, PRs antigos viram documentação viva: registram **por que** aquela mudança foi feita, quem revisou e quais alternativas foram consideradas.
 
-- Integração Contínua (CI/CD): Permite rodar testes e linters automaticamente na branch isolada.
-
-- Histórico e Documentação: Mantém um registro do motivo pelo qual uma alteração foi feita e de quem a aprovou.
-
-- Aprendizado: Desenvolvedores menos experientes aprendem lendo o código dos mais experientes (e vice-versa).
-  
 ## Workflow com Pull Requests
 
 O fluxo tradicional de trabalho em projetos colaborativos ou Open Source segue um padrão claro de etapas.
@@ -1159,4 +1226,6 @@ Fonte: Code Review Best Practices[reference:5]
 ## 👥 Contribuidores
 
 - [@marcos-vinicius](https://github.com/MarcosvvMarques) 
+
+- [@RfaelDePadua](https://github.com/RfaelDePadua) - Seção "O que é um Pull Request (PR)?"
 - [@cristianomendes3](https://github.com/cristianomendes3)

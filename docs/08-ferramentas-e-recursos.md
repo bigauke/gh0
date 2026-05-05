@@ -699,24 +699,32 @@ git push origin --tags
 ### Interactive
 
 #### Learn Git Branching
+É a ferramenta visual mais famosa para entender como os commits e as branches se comportam.
+- **Link:** [https://learngitbranching.js.org/](https://learngitbranching.js.org/)
+- **Quando usar:** Quando tiver dificuldade em visualizar o que o `merge` ou `rebase` fazem com o grafo.
+- **Destaque:** Traduzido para Português.
 
-<!-- TODO: Jogo interativo -->
-<!-- https://learngitbranching.js.org/ -->
+#### Oh My Git!
+Um jogo interativo de código aberto que utiliza uma interface de cartas.
+- **Link:** [https://ohmygit.org/](https://ohmygit.org/)
+- **Quando usar:** Para aprender de forma lúdica, ideal para quem está fugindo de documentações densas no início.
 
-#### GitHub Learning Lab
-
-<!-- TODO: Cursos hands-on -->
+#### GitHub Skills (Antigo Learning Lab)
+Cursos hands-on baseados em repositórios reais com feedback automático.
+- **Link:** [https://skills.github.com/](https://skills.github.com/)
 
 ### Books
 
-#### Pro Git
-
-<!-- TODO: Livro completo e gratuito -->
-<!-- https://git-scm.com/book/pt-br/v2 -->
+#### Pro Git (O Livro)
+A "bíblia" oficial do Git, escrita por Scott Chacon e Ben Straub.
+- **Link:** [https://git-scm.com/book/pt-br/v2](https://git-scm.com/book/pt-br/v2)
+- **Nível:** Iniciante (capítulos 1-3) ao Avançado (capítulos 7-10).
+- **Idioma:** Português e Inglês.
 
 #### Git from the Bottom Up
-
-<!-- TODO: Entendimento profundo -->
+Focado em como o Git funciona "por baixo do capô" (objetos, hashes e referências).
+- **Link:** [https://jwiegley.github.io/git-from-the-bottom-up/](https://jwiegley.github.io/git-from-the-bottom-up/)
+- **Nível:** Avançado.
 
 ### Cheat Sheets
 
@@ -741,18 +749,20 @@ Aqui estão algumas das melhores "colas" (cheat sheets) gratuitas para você sal
 ## Documentation
 
 ### Official Git Docs
-
-<!-- TODO: git-scm.com -->
+Referência técnica absoluta para todos os comandos e protocolos.
+- **Site:** [git-scm.com](https://git-scm.com/doc)
+- **Idioma:** Inglês.
 
 ### GitHub Docs
-
-<!-- TODO: docs.github.com -->
+Documentação completa da plataforma, cobrindo desde Issues até Actions e Segurança.
+- **Site:** [docs.github.com](https://docs.github.com/pt)
+- **Idioma:** Português disponível.
 
 ### Man Pages
-
+Você pode acessar a documentação direto no seu terminal:
 ```bash
-# TODO: git help <comando>
-# man git-<comando>
+git help <comando>
+# Exemplo: git help commit
 ```
 
 ## Troubleshooting Tools
@@ -1050,11 +1060,12 @@ git config --global alias.nuke "!git reset --hard HEAD && git clean -fd"
 ---
 
 ## 👥 Contribuidores
-
 <!-- Este conteúdo é colaborativo. Contribuidores deste arquivo: -->
 <!-- Adicione seu nome quando contribuir:
 - [@seu-usuario](https://github.com/seu-usuario) - Seção X
 -->
-[@camiwr](https://github.com/camiwr) - Seção Extensions e Plugins & GitHub Features
 <!-- Adicione seu nome quando contribuir: -->
+
+- [@p-esteves](https://github.com/p-esteves) - Seções de Recursos de Aprendizagem e Documentação (#64, #65)
+- [@camiwr](https://github.com/camiwr) - Seção Extensions e Plugins & GitHub Features
 - [@idarlandias](https://github.com/idarlandias) - Seção Cheat Sheets
